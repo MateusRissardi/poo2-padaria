@@ -4,9 +4,9 @@
  */
 package com.mycompany.trabalhopadaria.Entidades;
 
-import Execoes.cpfInvalido;
-import Execoes.nomeInvalido;
-import Execoes.telefoneInvalido;
+import Excecoes.cpfInvalido;
+import Excecoes.nomeInvalido;
+import Excecoes.telefoneInvalido;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +28,7 @@ public class Cliente implements Serializable {
     private String nome;
     private String cpf;
     private String telefone;
-    private String quantidadePontos;
+    private double quantidadePontos;
     
     public Long getId() {
         return id;
@@ -84,7 +84,7 @@ public class Cliente implements Serializable {
         }
     }
 
-    public String getQuantidadePontos() {
+    public double  getQuantidadePontos() {
         return quantidadePontos;
     }
     

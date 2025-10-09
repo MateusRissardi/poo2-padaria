@@ -4,8 +4,8 @@
  */
 package com.mycompany.trabalhopadaria.Entidades;
 
-import Execoes.nomeInvalido;
-import Execoes.precoInvalido;
+import Excecoes.nomeInvalido;
+import Excecoes.precoInvalido;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -73,6 +73,10 @@ public class Produto implements Serializable {
     public int getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
     
     public double getPreco(){
         return preco;
@@ -88,6 +92,11 @@ public class Produto implements Serializable {
         } catch (precoInvalido e) {
             System.out.println("Erro: " + e.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" + "id=" + id + ", nome=" + nome + ", tipo=" + tipo + ", quantidadeEstoque=" + quantidadeEstoque + ", preco=" + preco + '}';
     }
     
     

@@ -1,3 +1,12 @@
+Excecoes\nomeInvalido.class
+Excecoes\cpfInvalido.class
+Excecoes\telefoneInvalido.class
+Excecoes\precoInvalido.class
+com\mycompany\trabalhopadaria\Entidades\Carrinho.class
+com\mycompany\trabalhopadaria\Entidades\Venda.class
 com\mycompany\trabalhopadaria\TrabalhoPadaria.class
+Excecoes\dataInvalida.class
+Excecoes\produtoInvalido.class
+Excecoes\vendaInvalida.class
 com\mycompany\trabalhopadaria\Entidades\Cliente.class
 com\mycompany\trabalhopadaria\Entidades\Produto.class

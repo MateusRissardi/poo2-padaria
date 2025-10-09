@@ -26,6 +26,7 @@ public class Carrinho implements Serializable {
     private Long id;
     private static ArrayList<Produto> produtos;
     private static double valorCarrinho;
+    private int valorPonto;
     
     public Carrinho(){
         produtos = new ArrayList<>();
@@ -81,5 +82,14 @@ public class Carrinho implements Serializable {
         else{
             System.out.println("Produto não encontrado no Carrinho");
         }
+    }
+    
+    public int calcularPrecoPonto(){
+        int totalPontos = 0;
+        
+        for (Produto prod : this.getProdutos()){
+            totalPontos += prod.getPrecoPonto();
+        }
+        return totalPontos;
     }
 }

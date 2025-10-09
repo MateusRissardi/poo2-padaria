@@ -31,17 +31,23 @@ public class Produto implements Serializable {
         this.tipo = tipo;
         this.quantidadeEstoque = quantidadeEstoque;
         this.preco = preco;
+        this.precoPonto = this.calcPontos();
     }
     
     private String nome;
     private String tipo;
     private int quantidadeEstoque;
     private double preco;
+    private int precoPonto;
     
     public Long getId() {
         return id;
     }
-
+    
+    public int getPrecoPonto(){
+        return this.precoPonto;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -93,7 +99,14 @@ public class Produto implements Serializable {
             System.out.println("Erro: " + e.getMessage());
         }
     }
-
+    
+    public int calcPontos(){
+        if (this.preco <= 5){
+        return 1;
+    } else{
+            return (int) this.getPreco() / 5;
+        }
+    }
     @Override
     public String toString() {
         return "Produto{" + "id=" + id + ", nome=" + nome + ", tipo=" + tipo + ", quantidadeEstoque=" + quantidadeEstoque + ", preco=" + preco + '}';

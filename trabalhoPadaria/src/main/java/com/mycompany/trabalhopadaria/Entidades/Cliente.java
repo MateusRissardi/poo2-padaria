@@ -28,7 +28,7 @@ public class Cliente implements Serializable {
     private String nome;
     private String cpf;
     private String telefone;
-    private double quantidadePontos;
+    private int quantidadePontos;
     
     public Long getId() {
         return id;
@@ -84,8 +84,12 @@ public class Cliente implements Serializable {
         }
     }
 
-    public double  getQuantidadePontos() {
+    public int  getQuantidadePontos() {
         return quantidadePontos;
+    }
+    
+    public void setQuantidadePontos(int pontos){
+        this.quantidadePontos += pontos;
     }
     
 }

@@ -6,6 +6,7 @@ package com.mycompany.trabalhopadaria.Entidades;
 
 import Excecoes.dataInvalida;
 import Excecoes.vendaInvalida;
+import Excecoes.vendaPontoInvalida;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,7 +83,8 @@ public class Venda implements Serializable {
 
     public void setFormaPagamento(String formaPagamento) {
         try{
-            if(formaPagamento != "Pix" || formaPagamento != "Boleto" || formaPagamento != "Débito" || formaPagamento != "Crédito"){
+            if(formaPagamento != "Pix" || formaPagamento != "Boleto" || formaPagamento != "Débito" 
+                    || formaPagamento != "Crédito" || formaPagamento != "Ponto"){
                 this.formaPagamento = formaPagamento;
             }
             else{
@@ -131,13 +133,33 @@ public class Venda implements Serializable {
             if(this.cliente == null || this.carrinho == null){
                 throw new vendaInvalida("Venda não realizada, verifique se o usuário e/ou os produtos estão cadastrados");
             }
-            else if(this.dataCompra == null || this.formaPagamento == null){
+            else if(this.dataCompra == null || this.formaPagamento.isBlank()){
                 throw new vendaInvalida("Venda não realizada, verifique se a data de compra e/ou a forma de pagamento estão cadastrados");
             }
-            else{
+            
+            else if (this.formaPagamento.equals("Ponto")){
+                try{
+                    if (this.carrinho.calcularPrecoPonto() > this.cliente.getQuantidadePontos()){
+                        throw new vendaPontoInvalida("Quantidade de pontos insuficientes!");
+                    } else {
+                        System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + cliente.getNome() + 
+                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
+                    for(Produto umProd : carrinho.getProdutos()){
+                        System.out.println("Nome: " + umProd.getNome() + ", Preço de pontos: " + umProd.getPrecoPonto());
+                    }
+                    this.cliente.setQuantidadePontos(this.carrinho.calcularPrecoPonto()*-1);
+                    System.out.println("Preço total de pontos: " + carrinho.calcularPrecoPonto());
+                    }
+                } catch (vendaPontoInvalida e){
+                    System.out.println("Erro: " + e.getMessage());
+                }
+            }
+            
+            else {
                 System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + cliente.getNome() + 
                         ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
                 for(Produto umProd : carrinho.getProdutos()){
+                    this.cliente.setQuantidadePontos(umProd.calcPontos());
                     System.out.println("Nome: " + umProd.getNome() + ", Preço: R$" + umProd.getPreco());
                 }
                 System.out.println("Preço total: R$" + carrinho.getValorCarrinho());
@@ -147,5 +169,6 @@ public class Venda implements Serializable {
             System.out.println("Erro: " + ex.getMessage());
         }
     }
+    
   
 }

@@ -41,10 +41,18 @@ public class TrabalhoPadaria {
         ven1.setCliente(cli1);
         
         ven1.setDataCompra(2024, 1, 28);
-        ven1.setFormaPagamento("Pix");
+        ven1.setFormaPagamento("Ponto");
         ven1.setDescricao("Compras do mês");
+        
+        cli1.setQuantidadePontos(11);
+                
+        System.out.println("Quantidade de pontos do " + cli1.getNome() +", " + cli1.getQuantidadePontos());
+        System.out.println("Valor dos produtos no carrinho em pontos: " + car1.calcularPrecoPonto());
         
         ven1.confirmarVenda();
         
+        System.out.println(cli1.getQuantidadePontos());
+        
+
     }
 }

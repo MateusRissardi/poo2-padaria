@@ -37,6 +37,25 @@ public class CarrinhoDAO {
         }
     }
     
+        public void update(Carrinho carrinho) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        em.getTransaction().begin();
+
+        em.merge(carrinho);
+        
+        em.getTransaction().commit();
+    } catch (Exception ex) {
+        System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
+        ex.printStackTrace();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    } finally {
+        em.close();
+    }
+}
+    
     public void excluir(Long id){
         EntityManager em = emf.createEntityManager();
         try{

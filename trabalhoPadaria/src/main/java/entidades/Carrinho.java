@@ -107,5 +107,5 @@ public class Carrinho implements Serializable {
             valorPonto += prod.getPrecoPonto();
         }
         return valorPonto;
-    }
+    } 
 }

@@ -4,17 +4,16 @@
  */
 package entidades;
 
-import excecoes.dataInvalida;
 import excecoes.vendaInvalida;
 import excecoes.vendaPontoInvalida;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 /**
  *
@@ -29,6 +28,8 @@ public class Venda implements Serializable {
     private Long id;
     private String formaPagamento;
     private String descricao;
+    @OneToOne
+    @JoinColumn(name = "carrinho-id")
     private Carrinho carrinho;
     private String dataCompra;
 

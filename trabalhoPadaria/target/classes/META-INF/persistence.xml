@@ -5,12 +5,13 @@
     <class>entidades.Cliente</class>
     <class>entidades.Produto</class>
     <class>entidades.Carrinho</class>
+    <class>entidades.Venda</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
       <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-      <property name="jakarta.persistence.jdbc.password" value="admin"/>
+      <property name="jakarta.persistence.jdbc.password" value="PGCEAVI"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>

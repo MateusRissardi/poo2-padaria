@@ -4,28 +4,27 @@
  */
 package trabalhopadaria;
 
-import excecoes.nomeInvalido;
-import entidades.Cliente;
+import entidades.Venda;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 /**
  *
  * @author mateu
  */
-public class ClienteDAO {
-    private EntityManagerFactory emf;
+public class VendaDAO {
+  private EntityManagerFactory emf;
     
-    public ClienteDAO(){
+    public VendaDAO(){
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Cliente umCliente){
+    public void salvar(Venda umaVen){
         EntityManager em = emf.createEntityManager();
         try{
           em.getTransaction().begin();
-          em.persist(umCliente);
+          em.persist(umaVen);
           em.getTransaction().commit();
         }
         catch(Exception ex){
@@ -38,29 +37,29 @@ public class ClienteDAO {
         }
     }
     
-    public void update(Cliente cliente) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        em.getTransaction().begin();
+    public void update(Venda venda) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
 
-        em.merge(cliente);
-        
-        em.getTransaction().commit();
-    } catch (Exception ex) {
-        System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
-        ex.printStackTrace();
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+            em.merge(venda);
+
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
+            ex.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
         }
-    } finally {
-        em.close();
     }
-}
     
     public void excluir(Long id){
         EntityManager em = emf.createEntityManager();
         try{
-            Cliente p = em.find(Cliente.class, id);
+            Venda p = em.find(Venda.class, id);
             if(p != null){
                 em.remove(p);
                 System.out.println("Excluido com sucesso!");
@@ -73,14 +72,12 @@ public class ClienteDAO {
         finally{
             em.close();
         }
-        
-    }
-    
+    } 
     
     public void excluirTodos(){
         EntityManager em = emf.createEntityManager();
         try{
-            String jpql = "DELETE FROM Cliente c";
+            String jpql = "DELETE FROM Venda c";
             em.getTransaction().begin();
             em.createQuery(jpql).executeUpdate();
             em.getTransaction().commit();
@@ -93,10 +90,10 @@ public class ClienteDAO {
         }
     }
     
-    public Cliente encontrarPorID(Long id){
+    public Venda encontrarPorID(Long id){
         EntityManager em = emf.createEntityManager();
         try{
-            return(em.find(Cliente.class, id));
+            return(em.find(Venda.class, id));
         }
         finally{
             em.close();

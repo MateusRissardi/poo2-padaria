@@ -27,6 +27,7 @@ public class TrabalhoPadaria {
     ClienteDAO cliDao = new ClienteDAO();
     ProdutoDAO proDao = new ProdutoDAO();
     CarrinhoDAO carDao = new CarrinhoDAO();
+    VendaDAO venDao = new VendaDAO();
 
     cliDao.salvar(cli1);
     cliDao.salvar(cli2);
@@ -46,5 +47,20 @@ public class TrabalhoPadaria {
     
     System.out.println("Buscando cliente salvo: " + cliDao.encontrarPorID(cli2.getId()).getNome());
     System.out.println("Buscando produto salvo: " + proDao.encontrarPorID(prod1.getId()).getNome());
-}
+    
+    cli2.setNome("Mateus Rissardi");
+    cliDao.update(cli2);
+    
+    System.out.println("Buscando cliente salvo: " + cliDao.encontrarPorID(cli2.getId()).getNome());
+    
+    Venda ven1 = new Venda();
+    
+    ven1.setCarrinho(car1);
+    ven1.setDataCompra();
+    ven1.setFormaPagamento("Pix");
+    ven1.confirmarVenda();
+    
+    venDao.salvar(ven1);
+    
+    }
 }

@@ -6,6 +6,8 @@
     <class>entidades.Produto</class>
     <class>entidades.Carrinho</class>
     <class>entidades.Venda</class>
+    <class>entidades.Usuario</class>
+    <class>entidades.Admin</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

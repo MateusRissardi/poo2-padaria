@@ -18,7 +18,7 @@ import jakarta.persistence.Id;
  * @author Dell
  */
 @Entity
-public class Cliente implements Serializable {
+public class Cliente extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,66 +29,15 @@ public class Cliente implements Serializable {
     private String cpf;
     private String telefone;
     private int quantidadePontos;
+    boolean funcionario = false;
     
     public Cliente(String nome, String cpf, String telefone) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
+        super(nome, cpf, telefone);
     }
 
-    public Cliente() {
-    }
     
     public Long getId() {
         return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) throws nomeInvalido {
-        try {
-            if (nome == null || nome.isBlank()){
-                throw new nomeInvalido("Nome inválido!");
-            } else {
-                this.nome = nome;
-        } 
-        } catch (nomeInvalido e){
-            System.out.println("Erro: " + e.getMessage());
-        }
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) throws cpfInvalido {
-        try{
-          if (cpf == null || cpf.isBlank()){
-              throw new cpfInvalido("CPF inválido!");
-          } else {
-              this.cpf = cpf;
-          }
-        } catch(cpfInvalido e){
-            System.out.println("Erro: " + e.getMessage());
-        }
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) throws telefoneInvalido{
-        try{
-            if(telefone == null || telefone.isBlank()){
-                throw new telefoneInvalido("Telefone inválido!");
-            }else{
-                this.telefone = telefone;
-            }
-        } catch (telefoneInvalido e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
     }
 
     public int  getQuantidadePontos() {

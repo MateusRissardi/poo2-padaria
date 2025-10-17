@@ -97,6 +97,10 @@ public abstract class Usuario implements Serializable {
         }
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
     @Override
     public String toString() {
         return "entidades.Usuario[ id=" + id + " ]";

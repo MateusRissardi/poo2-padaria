@@ -30,4 +30,13 @@ public class Admin extends Usuario implements Serializable {
         return "entidades.Admin[ id=" + id + " ]";
     }
     
+    @Override
+    public boolean isFunc(){
+        return true;
+    }
+    
+    @Override
+    public int getQuantidadePontos(){
+        return 0;
+    }
 }

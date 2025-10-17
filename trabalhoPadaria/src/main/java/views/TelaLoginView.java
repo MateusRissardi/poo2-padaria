@@ -4,7 +4,9 @@
  */
 package views;
 
+import Excecoes.Classes.SessaoUsuario;
 import Excecoes.usuarioInvalido;
+import entidades.Admin;
 import entidades.Cliente;
 import entidades.Usuario;
 import java.awt.BorderLayout;
@@ -22,6 +24,7 @@ public class TelaLoginView extends javax.swing.JFrame {
     private TelaHomeView telaHome;
     private UsuarioDAO usDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginView.class.getName());
+    private SessaoUsuario sessaoUsuario;
 
     /**
      * Creates new form TelaLoginView
@@ -34,6 +37,8 @@ public class TelaLoginView extends javax.swing.JFrame {
         getContentPane().add(pnHome, BorderLayout.CENTER);
         pnHome.setVisible(false);
         usDao = new UsuarioDAO();
+        sessaoUsuario = new SessaoUsuario();
+        usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
         pack();
     }
 
@@ -190,9 +195,7 @@ public class TelaLoginView extends javax.swing.JFrame {
                             .addComponent(lbNomeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnCadastroLayout.createSequentialGroup()
-                                .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnCadastroLayout.createSequentialGroup()
                                 .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -216,7 +219,7 @@ public class TelaLoginView extends javax.swing.JFrame {
                     .addComponent(lbTelefoneCadastro)
                     .addComponent(lbSenhaCadastro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfTelefoneCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
@@ -353,7 +356,8 @@ public class TelaLoginView extends javax.swing.JFrame {
                     if(usuario.getSenha().equals(tfSenhaLogin.getText())){
                         telaHome.setVisible(true);
                         this.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Bem vindo de volta " + usuario.getNome());
+                         sessaoUsuario.setUsuario(usuario);
+                        JOptionPane.showMessageDialog(null, "Bem vindo de volta\n " + usuario.getNome());
                         break;
                     }
                     else{

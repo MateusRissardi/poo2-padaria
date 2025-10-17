@@ -20,12 +20,23 @@ import javax.persistence.Id;
 public class Funcionario extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    private boolean func = true;
+    
     public Funcionario() {
     }
 
     public Funcionario(String nome, String cpf, String telefone, String senha) {
         super(nome, cpf, telefone, senha);
+    }
+    
+    @Override
+    public boolean isFunc(){
+        return this.func == true;
+    }
+    
+    @Override
+    public int getQuantidadePontos(){
+        return 0;
     }
     
     @Override

@@ -231,10 +231,7 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbCpfCadastro" min="-2" pref="37" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="lbCpfCadastro" min="-2" pref="37" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="lbSenhaCadastro" min="-2" pref="37" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -267,9 +264,9 @@
                               <Component id="lbSenhaCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="tfTelefoneCadastro" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfSenhaCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfSenhaCadastro" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="53" max="32767" attributes="0"/>
                           <Component id="btSalvar" min="-2" max="-2" attributes="0"/>

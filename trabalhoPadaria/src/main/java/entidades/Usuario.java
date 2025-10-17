@@ -100,6 +100,10 @@ public abstract class Usuario implements Serializable {
     public String getSenha() {
         return senha;
     }
+    
+    public abstract boolean isFunc();
+    
+    public abstract int getQuantidadePontos();
 
     @Override
     public String toString() {

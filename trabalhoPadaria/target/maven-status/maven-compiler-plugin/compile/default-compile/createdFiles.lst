@@ -3,10 +3,13 @@ excecoes\nomeInvalido.class
 entidades\Venda.class
 excecoes\cpfInvalido.class
 views\TelaLoginView$3.class
+excecoes\Classes\SessaoUsuario.class
 excecoes\dataInvalida.class
 entidades\Carrinho.class
+views\TelaHomeView$2.class
 entidades\Funcionario.class
 excecoes\produtoInvalido.class
+views\TelaHomeView$1.class
 excecoes\precoInvalido.class
 views\TelaLoginView$4.class
 trabalhopadaria\UsuarioDAO.class

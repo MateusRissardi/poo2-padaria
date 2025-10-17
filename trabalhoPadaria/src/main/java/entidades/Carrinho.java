@@ -12,6 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import entidades.Produto; 
 import excecoes.produtoInvalido; 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -29,7 +31,7 @@ public class Carrinho implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "carrinho-produto", joinColumns = @JoinColumn(name = "carrinho-id"), inverseJoinColumns = @JoinColumn(name = "produto-id"))
     private List<Produto> produtos;
     private double valorCarrinho;

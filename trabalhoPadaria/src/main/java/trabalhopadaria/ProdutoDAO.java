@@ -4,10 +4,14 @@
  */
 package trabalhopadaria;
 
+import Excecoes.usuarioInvalido;
 import entidades.Produto;
+import entidades.Usuario;
+import excecoes.produtoInvalido;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
 
 /**
  *
@@ -20,12 +24,15 @@ public class ProdutoDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Produto umProd){
+    public void salvar(Produto produto){
         EntityManager em = emf.createEntityManager();
         try{
-          em.getTransaction().begin();
-          em.persist(umProd);
-          em.getTransaction().commit();
+          List<Produto> produtos = findAll();
+          for( Produto umProduto : produtos ){
+              if(umProduto.getNome().equals(produto.getNome())){
+                  throw new produtoInvalido("O produto já existe!");
+              }
+          }
         }
         catch(Exception ex){
             System.out.println("Erro: " + ex.getMessage());
@@ -94,6 +101,21 @@ public class ProdutoDAO {
         EntityManager em = emf.createEntityManager();
         try{
             return(em.find(Produto.class, id));
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    public List<Produto> findAll() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Produto c";
+           return em.createQuery(jpql, Produto.class).getResultList();
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
         }
         finally{
             em.close();

@@ -110,9 +110,7 @@ public class Venda implements Serializable {
                         System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
                         ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
                         for(Produto umProd : carrinho.getProdutos()){
-                            if (umProd.getPreco() > 5){
-                                this.carrinho.getCliente().setQuantidadePontos(umProd.calcPontos());
-                            }
+                            this.carrinho.getCliente().setQuantidadePontos(umProd.calcPontos() * (-1));
                             System.out.println("Nome: " + umProd.getNome() + ", Preço de pontos: " + umProd.getPrecoPonto());
                         }
                     }

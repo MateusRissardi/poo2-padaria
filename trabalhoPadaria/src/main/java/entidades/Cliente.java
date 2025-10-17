@@ -4,40 +4,31 @@
  */
 package entidades;
 
-import excecoes.cpfInvalido;
-import excecoes.nomeInvalido;
-import excecoes.telefoneInvalido;
+import jakarta.persistence.DiscriminatorValue;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 /**
  *
  * @author Dell
  */
 @Entity
+@DiscriminatorValue("CLIENTE")
 public class Cliente extends Usuario implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    private Long id;
-    private String nome;
-    private String cpf;
-    private String telefone;
     private int quantidadePontos;
-    boolean funcionario = false;
-    
-    public Cliente(String nome, String cpf, String telefone) {
-        super(nome, cpf, telefone);
+
+    public Cliente(String nome, String cpf, String telefone, String senha) {
+        super(nome, cpf, telefone, senha);
     }
 
+    public Cliente() {
+    }
     
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     public int  getQuantidadePontos() {
@@ -50,7 +41,7 @@ public class Cliente extends Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + ", quantidadePontos=" + quantidadePontos + '}';
+        return "Cliente{" + "id=" + super.getId() + ", nome=" + super.getNome() + ", cpf=" + super.getCpf() + ", telefone=" + super.getTelefone() + ", quantidadePontos=" + quantidadePontos + '}';
     }
     
     

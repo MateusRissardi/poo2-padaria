@@ -4,10 +4,12 @@
  */
 package trabalhopadaria;
 
+import entidades.Usuario;
 import entidades.Venda;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
 
 /**
  *
@@ -94,6 +96,21 @@ public class VendaDAO {
         EntityManager em = emf.createEntityManager();
         try{
             return(em.find(Venda.class, id));
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    public List<Venda> findAll() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Venda c";
+           return em.createQuery(jpql, Venda.class).getResultList();
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
         }
         finally{
             em.close();

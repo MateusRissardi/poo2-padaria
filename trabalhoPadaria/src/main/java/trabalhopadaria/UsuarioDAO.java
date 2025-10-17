@@ -4,28 +4,37 @@
  */
 package trabalhopadaria;
 
+import Excecoes.usuarioInvalido;
 import excecoes.nomeInvalido;
 import entidades.Cliente;
+import entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.EntityManagerFactory;
+import java.util.List;
 
 /**
  *
  * @author mateu
  */
-public class ClienteDAO {
+public class UsuarioDAO {
     private EntityManagerFactory emf;
     
-    public ClienteDAO(){
+    public UsuarioDAO(){
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Cliente umCliente){
+    public void salvar(Usuario usuario){
         EntityManager em = emf.createEntityManager();
         try{
+          List<Usuario> usuarios = findAll();
+          for( Usuario umUsuario : usuarios ){
+              if(umUsuario.getCpf().equals(usuario.getCpf())){
+                  throw new usuarioInvalido("O usuário já existe!");
+              }
+          }
           em.getTransaction().begin();
-          em.persist(umCliente);
+          em.persist(usuario);
           em.getTransaction().commit();
         }
         catch(Exception ex){
@@ -38,12 +47,12 @@ public class ClienteDAO {
         }
     }
     
-    public void update(Cliente cliente) {
+    public void update(Usuario umUsuario) {
     EntityManager em = emf.createEntityManager();
     try {
         em.getTransaction().begin();
 
-        em.merge(cliente);
+        em.merge(umUsuario);
         
         em.getTransaction().commit();
     } catch (Exception ex) {
@@ -102,4 +111,20 @@ public class ClienteDAO {
             em.close();
         }
     }
+    
+    public List<Usuario> findAll() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Usuario c";
+           return em.createQuery(jpql, Usuario.class).getResultList();
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
+        }
+        finally{
+            em.close();
+        }
+    } 
+    
 }

@@ -5,9 +5,11 @@
 package trabalhopadaria;
 
 import entidades.Carrinho;
+import entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import java.util.List;
 
 /**
  *
@@ -94,6 +96,21 @@ public class CarrinhoDAO {
         EntityManager em = emf.createEntityManager();
         try{
             return(em.find(Carrinho.class, id));
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    public List<Carrinho> findAll() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Carrinho c";
+           return em.createQuery(jpql, Carrinho.class).getResultList();
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
         }
         finally{
             em.close();

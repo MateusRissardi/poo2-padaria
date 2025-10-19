@@ -6,9 +6,11 @@ package entidades;
 
 import excecoes.vendaInvalida;
 import excecoes.vendaPontoInvalida;
+import jakarta.persistence.CascadeType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,17 +30,27 @@ public class Venda implements Serializable {
     private Long id;
     private String formaPagamento;
     private String descricao;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrinho-id")
     private Carrinho carrinho;
     private String dataCompra;
+    private boolean vendaFinalizada;
 
     public Venda() {
-
+        this.descricao = "";
+        this.vendaFinalizada = false;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isVendaFinalizada() {
+        return vendaFinalizada;
     }
 
     public String getDataCompra() {
@@ -107,6 +119,7 @@ public class Venda implements Serializable {
                     if (this.carrinho.calcularPrecoPonto() > this.carrinho.getCliente().getQuantidadePontos()){
                         throw new vendaPontoInvalida("Quantidade de pontos insuficientes!");
                     } else {
+                        this.vendaFinalizada = true;
                         System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
                         ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
                         for(Produto umProd : carrinho.getProdutos()){
@@ -132,6 +145,17 @@ public class Venda implements Serializable {
         catch(vendaInvalida ex){
             System.out.println("Erro: " + ex.getMessage());
         }
+    }
+
+    @Override
+    public String toString() {
+        String texto = "Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
+                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: \n";
+                for(Produto umProd : carrinho.getProdutos()){
+                    texto += "Nome: " + umProd.getNome() + ", Preço: R$" + umProd.getPreco() + "\n";
+                }
+                texto += "Preço total: R$" + carrinho.getValorCarrinho();
+                return texto;
     }
     
   

@@ -31,11 +31,6 @@ public class Admin extends Usuario implements Serializable {
     }
     
     @Override
-    public boolean isFunc(){
-        return true;
-    }
-    
-    @Override
     public int getQuantidadePontos(){
         return 0;
     }

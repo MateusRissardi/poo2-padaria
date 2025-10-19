@@ -36,7 +36,7 @@ public class Carrinho implements Serializable {
     private List<Produto> produtos;
     private double valorCarrinho;
     private int valorPonto;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente-id")
     private Cliente cliente;
     
@@ -47,6 +47,10 @@ public class Carrinho implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
@@ -97,6 +101,7 @@ public class Carrinho implements Serializable {
     }
     public void removeOneProdutoFromCarrinho(Produto umProd){
         if(produtos.contains(umProd)){
+            umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() + 1);
             produtos.remove(umProd);
         }
         else{

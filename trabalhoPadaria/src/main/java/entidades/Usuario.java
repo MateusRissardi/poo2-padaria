@@ -49,6 +49,10 @@ public abstract class Usuario implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -101,7 +105,6 @@ public abstract class Usuario implements Serializable {
         return senha;
     }
     
-    public abstract boolean isFunc();
     
     public abstract int getQuantidadePontos();
 

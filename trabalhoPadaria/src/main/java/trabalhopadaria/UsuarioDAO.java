@@ -5,8 +5,6 @@
 package trabalhopadaria;
 
 import Excecoes.usuarioInvalido;
-import excecoes.nomeInvalido;
-import entidades.Cliente;
 import entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
@@ -24,35 +22,44 @@ public class UsuarioDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Usuario usuario){
+    private boolean nomeJaExiste(String nome, EntityManager em) {
+        String jpql = "SELECT COUNT(p) FROM Usuario p WHERE p.nome = :nome";
+        Long count = em.createQuery(jpql, Long.class)
+                       .setParameter("nome", nome)
+                       .getSingleResult();
+        return count > 0;
+    }
+    public Usuario salvar(Usuario usuario){
         EntityManager em = emf.createEntityManager();
+        Usuario usuarioSalvo = null;
         try{
-          List<Usuario> usuarios = findAll();
-          for( Usuario umUsuario : usuarios ){
-              if(umUsuario.getCpf().equals(usuario.getCpf())){
-                  throw new usuarioInvalido("O usuário já existe!");
-              }
-          }
+          if (nomeJaExiste(usuario.getNome(), em)) {
+                throw new usuarioInvalido("O produto com nome '" + usuario.getNome() + "' já existe!");
+            }
           em.getTransaction().begin();
-          em.persist(usuario);
+          usuarioSalvo = em.merge(usuario);
           em.getTransaction().commit();
         }
         catch(Exception ex){
             System.out.println("Erro: " + ex.getMessage());
-            ex.printStackTrace();
+            if (em.getTransaction().isActive()) {
             em.getTransaction().rollback();
+            }
         }
         finally{
             em.close();
         }
+        
+          return usuarioSalvo;
     }
     
-    public void update(Usuario umUsuario) {
+    public Usuario update(Usuario umUsuario) {
     EntityManager em = emf.createEntityManager();
+    Usuario usuarioAtualizado = null;
     try {
         em.getTransaction().begin();
 
-        em.merge(umUsuario);
+        usuarioAtualizado = em.merge(umUsuario);
         
         em.getTransaction().commit();
     } catch (Exception ex) {
@@ -64,12 +71,13 @@ public class UsuarioDAO {
     } finally {
         em.close();
     }
+    return usuarioAtualizado;
 }
     
     public void excluir(Long id){
         EntityManager em = emf.createEntityManager();
         try{
-            Cliente p = em.find(Cliente.class, id);
+            Usuario p = em.find(Usuario.class, id);
             if(p != null){
                 em.remove(p);
                 System.out.println("Excluido com sucesso!");
@@ -89,7 +97,7 @@ public class UsuarioDAO {
     public void excluirTodos(){
         EntityManager em = emf.createEntityManager();
         try{
-            String jpql = "DELETE FROM Cliente c";
+            String jpql = "DELETE FROM Usuario c";
             em.getTransaction().begin();
             em.createQuery(jpql).executeUpdate();
             em.getTransaction().commit();
@@ -102,10 +110,10 @@ public class UsuarioDAO {
         }
     }
     
-    public Cliente encontrarPorID(Long id){
+    public Usuario encontrarPorID(Long id){
         EntityManager em = emf.createEntityManager();
         try{
-            return(em.find(Cliente.class, id));
+            return(em.find(Usuario.class, id));
         }
         finally{
             em.close();

@@ -19,26 +19,24 @@ import trabalhopadaria.UsuarioDAO;
  *
  * @author mateu
  */
-public class TelaLoginView extends javax.swing.JFrame {
+public class TelaLoginCadastroView extends javax.swing.JFrame {
     
-    private TelaHomeView telaHome;
+    private TelaHomeClienteView telaHome;
     private UsuarioDAO usDao;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginView.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginCadastroView.class.getName());
     private SessaoUsuario sessaoUsuario;
 
     /**
      * Creates new form TelaLoginView
      */
-    public TelaLoginView() {
+    public TelaLoginCadastroView() {
         initComponents();
-        telaHome = new TelaHomeView();
         getContentPane().setLayout(new java.awt.BorderLayout());
         getContentPane().add(pnPanel, BorderLayout.WEST);
         getContentPane().add(pnHome, BorderLayout.CENTER);
         pnHome.setVisible(false);
         usDao = new UsuarioDAO();
-        sessaoUsuario = new SessaoUsuario();
-        usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
+        //usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
         pack();
     }
 
@@ -56,7 +54,7 @@ public class TelaLoginView extends javax.swing.JFrame {
         lbInt1 = new javax.swing.JLabel();
         lbLogin = new javax.swing.JLabel();
         btLogin = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbCadastro = new javax.swing.JLabel();
         btCadastro = new javax.swing.JButton();
         pnHome = new javax.swing.JPanel();
         tpHome = new javax.swing.JTabbedPane();
@@ -100,9 +98,9 @@ public class TelaLoginView extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Primeira vez aqui?");
-        jLabel1.setAutoscrolls(true);
+        lbCadastro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbCadastro.setText("Primeira vez aqui?");
+        lbCadastro.setAutoscrolls(true);
 
         btCadastro.setText("Cadastro");
         btCadastro.setAutoscrolls(true);
@@ -129,7 +127,7 @@ public class TelaLoginView extends javax.swing.JFrame {
                         .addGroup(pnPanelLayout.createSequentialGroup()
                             .addComponent(lbLogin)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)))
+                            .addComponent(lbCadastro)))
                     .addGroup(pnPanelLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addGroup(pnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +148,7 @@ public class TelaLoginView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(pnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbLogin)
-                    .addComponent(jLabel1))
+                    .addComponent(lbCadastro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btLogin)
@@ -195,12 +193,13 @@ public class TelaLoginView extends javax.swing.JFrame {
                             .addComponent(lbNomeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnCadastroLayout.createSequentialGroup()
-                                .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(tfCpfCadastro)
-                            .addComponent(tfSenhaCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))))
+                            .addComponent(tfSenhaCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addGroup(pnCadastroLayout.createSequentialGroup()
+                                .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         pnCadastroLayout.setVerticalGroup(
@@ -354,9 +353,9 @@ public class TelaLoginView extends javax.swing.JFrame {
             for( Usuario usuario : usDao.findAll() ){
                 if(usuario.getCpf().equals(tfCpfLogin.getText())){
                     if(usuario.getSenha().equals(tfSenhaLogin.getText())){
+                        telaHome = new TelaHomeClienteView(usDao.encontrarPorID(usuario.getId()));
                         telaHome.setVisible(true);
                         this.setVisible(false);
-                         sessaoUsuario.setUsuario(usuario);
                         JOptionPane.showMessageDialog(null, "Bem vindo de volta\n " + usuario.getNome());
                         break;
                     }
@@ -399,7 +398,7 @@ public class TelaLoginView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaLoginView().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new TelaLoginCadastroView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -407,7 +406,7 @@ public class TelaLoginView extends javax.swing.JFrame {
     private javax.swing.JButton btLogar;
     private javax.swing.JButton btLogin;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbCadastro;
     private javax.swing.JLabel lbCpfCadastro;
     private javax.swing.JLabel lbCpfLogin;
     private javax.swing.JLabel lbInt1;

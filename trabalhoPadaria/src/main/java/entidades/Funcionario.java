@@ -6,10 +6,10 @@ package entidades;
 
 import jakarta.persistence.DiscriminatorValue;
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
  *
@@ -20,18 +20,12 @@ import javax.persistence.Id;
 public class Funcionario extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private boolean func = true;
     
     public Funcionario() {
     }
 
     public Funcionario(String nome, String cpf, String telefone, String senha) {
         super(nome, cpf, telefone, senha);
-    }
-    
-    @Override
-    public boolean isFunc(){
-        return this.func == true;
     }
     
     @Override

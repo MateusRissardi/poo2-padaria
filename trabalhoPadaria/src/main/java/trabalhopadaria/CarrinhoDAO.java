@@ -5,7 +5,6 @@
 package trabalhopadaria;
 
 import entidades.Carrinho;
-import entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -22,11 +21,12 @@ public class CarrinhoDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Carrinho umCar){
+    public Carrinho salvar(Carrinho umCar){
         EntityManager em = emf.createEntityManager();
+        Carrinho carrinhoSalvo = null;
         try{
           em.getTransaction().begin();
-          em.persist(umCar);
+          carrinhoSalvo = em.merge(umCar);
           em.getTransaction().commit();
         }
         catch(Exception ex){
@@ -37,26 +37,29 @@ public class CarrinhoDAO {
         finally{
             em.close();
         }
+        return carrinhoSalvo;
     }
     
-        public void update(Carrinho carrinho) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        em.getTransaction().begin();
+        public Carrinho update(Carrinho carrinho) {
+        EntityManager em = emf.createEntityManager();
+        Carrinho carrinhoAtualizado = null;
+        try {
+            em.getTransaction().begin();
 
-        em.merge(carrinho);
-        
-        em.getTransaction().commit();
-    } catch (Exception ex) {
-        System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
-        ex.printStackTrace();
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+            carrinhoAtualizado = em.merge(carrinho);
+
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
+            ex.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
         }
-    } finally {
-        em.close();
+        return carrinhoAtualizado;
     }
-}
     
     public void excluir(Long id){
         EntityManager em = emf.createEntityManager();

@@ -22,11 +22,12 @@ public class VendaDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Venda umaVen){
+    public Venda salvar(Venda umaVen){
         EntityManager em = emf.createEntityManager();
+        Venda vendaSalva = null;
         try{
           em.getTransaction().begin();
-          em.persist(umaVen);
+          vendaSalva = em.merge(umaVen);
           em.getTransaction().commit();
         }
         catch(Exception ex){
@@ -37,14 +38,16 @@ public class VendaDAO {
         finally{
             em.close();
         }
+        return vendaSalva;
     }
     
-    public void update(Venda venda) {
+    public Venda update(Venda venda) {
         EntityManager em = emf.createEntityManager();
+        Venda vendaAtualizada = null;
         try {
             em.getTransaction().begin();
 
-            em.merge(venda);
+            vendaAtualizada = em.merge(venda);
 
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -56,6 +59,7 @@ public class VendaDAO {
         } finally {
             em.close();
         }
+        return vendaAtualizada;
     }
     
     public void excluir(Long id){

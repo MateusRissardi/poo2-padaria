@@ -24,15 +24,24 @@ public class ProdutoDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    public void salvar(Produto produto){
+   private boolean nomeJaExiste(String nome, EntityManager em) {
+        String jpql = "SELECT COUNT(p) FROM Produto p WHERE p.nome = :nome";
+        Long count = em.createQuery(jpql, Long.class)
+                       .setParameter("nome", nome)
+                       .getSingleResult();
+        return count > 0;
+    }
+    
+    public Produto salvar(Produto produto){
         EntityManager em = emf.createEntityManager();
+        Produto produtoSalvo = null;
         try{
-          List<Produto> produtos = findAll();
-          for( Produto umProduto : produtos ){
-              if(umProduto.getNome().equals(produto.getNome())){
-                  throw new produtoInvalido("O produto já existe!");
-              }
-          }
+            if (nomeJaExiste(produto.getNome(), em)) {
+                throw new produtoInvalido("O produto com nome '" + produto.getNome() + "' já existe!");
+            }
+            em.getTransaction().begin();
+            produtoSalvo = em.merge(produto);
+            em.getTransaction().commit();
         }
         catch(Exception ex){
             System.out.println("Erro: " + ex.getMessage());
@@ -42,26 +51,29 @@ public class ProdutoDAO {
         finally{
             em.close();
         }
+        return produtoSalvo;
     }
     
-        public void update(Produto produto) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        em.getTransaction().begin();
+    public Produto update(Produto produto) {
+        EntityManager em = emf.createEntityManager();
+        Produto produtoAtualizado = null;
+        try {
+            em.getTransaction().begin();
 
-        em.merge(produto);
-        
-        em.getTransaction().commit();
-    } catch (Exception ex) {
-        System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
-        ex.printStackTrace();
-        if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback();
+            produtoAtualizado = em.merge(produto);
+
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            System.err.println("Erro ao atualizar cliente: " + ex.getMessage());
+            ex.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            em.close();
         }
-    } finally {
-        em.close();
+        return produtoAtualizado;
     }
-}
     
     public void excluir(Long id){
         EntityManager em = emf.createEntityManager();

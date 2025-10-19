@@ -5,26 +5,26 @@
 package views;
 
 import Excecoes.Classes.SessaoUsuario;
+import entidades.Cliente;
 import entidades.Usuario;
 
 /**
  *
  * @author mateu
  */
-public class TelaHomeView extends javax.swing.JFrame {
+public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHomeView.class.getName());
-    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHomeFuncionarioView.class.getName());
+    private Usuario cliente = new Cliente();
     
     /**
      * Creates new form TelaHomeView
      */
-    public TelaHomeView() {
-        Usuario u = SessaoUsuario.getUsuario();
-        lblUsuario.setText("Usuário: " + u.getNome());
-        lblPonto.setText("Ponto: " + u.getQuantidadePontos());
-        
+    public TelaHomeFuncionarioView(Usuario umUsu) {
         initComponents();
+        this.cliente = umUsu;
+        tfUsuario.setText(cliente.getNome());
+        tfPonto.setText("" + umUsu.getQuantidadePontos());
     }
 
     /**
@@ -36,8 +36,6 @@ public class TelaHomeView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jbCadastrarProduto = new javax.swing.JButton();
@@ -46,13 +44,12 @@ public class TelaHomeView extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
         lblPonto = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
+        tfPonto = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
-
-        jTextPane1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jTextPane1.setText("Padaria SisMaik");
-        jScrollPane1.setViewportView(jTextPane1);
 
         jbCadastrarProduto.setBackground(new java.awt.Color(235, 255, 255));
         jbCadastrarProduto.setText("Cadatrar produto");
@@ -80,6 +77,13 @@ public class TelaHomeView extends javax.swing.JFrame {
 
         lblPonto.setText("Ponto:");
 
+        tfUsuario.setEditable(false);
+
+        tfPonto.setEditable(false);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Padaria SisMaik");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,21 +101,25 @@ public class TelaHomeView extends javax.swing.JFrame {
                                 .addComponent(jbSituacaoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblPonto)
-                            .addComponent(lblUsuario))))
-                .addContainerGap(151, Short.MAX_VALUE))
+                            .addComponent(lblUsuario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel1)))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,13 +129,17 @@ public class TelaHomeView extends javax.swing.JFrame {
                 .addComponent(jbSituacaoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUsuario)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPonto)
-                .addGap(17, 17, 17))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPonto)
+                    .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -147,14 +159,16 @@ public class TelaHomeView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JButton jbCadastrarProduto;
     private javax.swing.JButton jbRegistrarVenda;
     private javax.swing.JButton jbSituacaoEstoque;
     private javax.swing.JLabel lblPonto;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTextField tfPonto;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

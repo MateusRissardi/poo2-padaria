@@ -25,6 +25,7 @@ public class Cliente extends Usuario implements Serializable {
     }
 
     public Cliente() {
+        
     }
     
     public Long getId() {
@@ -43,11 +44,4 @@ public class Cliente extends Usuario implements Serializable {
     public String toString() {
         return "Cliente{" + "id=" + super.getId() + ", nome=" + super.getNome() + ", cpf=" + super.getCpf() + ", telefone=" + super.getTelefone() + ", quantidadePontos=" + quantidadePontos + '}';
     }
-
-    @Override
-    public boolean isFunc() {
-        return false;
-    }
-    
-    
 }

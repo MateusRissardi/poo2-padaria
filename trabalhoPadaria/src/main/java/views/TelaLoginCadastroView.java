@@ -68,6 +68,8 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         tfTelefoneCadastro = new javax.swing.JTextField();
         lbSenhaCadastro = new javax.swing.JLabel();
         tfSenhaCadastro = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         pnLogin = new javax.swing.JPanel();
         lbCpfLogin = new javax.swing.JLabel();
         tfCpfLogin = new javax.swing.JTextField();
@@ -175,17 +177,23 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
 
         lbSenhaCadastro.setText("Senha:");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
+        jLabel4.setText("Formato: XX 9XXXX-XXXX");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
+        jLabel3.setText("Formato: XXX.XXX.XXX-XX");
+
         javax.swing.GroupLayout pnCadastroLayout = new javax.swing.GroupLayout(pnCadastro);
         pnCadastro.setLayout(pnCadastroLayout);
         pnCadastroLayout.setHorizontalGroup(
             pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnCadastroLayout.createSequentialGroup()
+                .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnCadastroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btSalvar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnCadastroLayout.createSequentialGroup()
+                    .addGroup(pnCadastroLayout.createSequentialGroup()
                         .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfNomeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTelefoneCadastro)
@@ -198,8 +206,12 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                             .addGroup(pnCadastroLayout.createSequentialGroup()
                                 .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(pnCadastroLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnCadastroLayout.setVerticalGroup(
@@ -213,7 +225,9 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                 .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNomeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addComponent(jLabel3)
+                .addGap(5, 5, 5)
                 .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTelefoneCadastro)
                     .addComponent(lbSenhaCadastro))
@@ -221,7 +235,9 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                 .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfTelefoneCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btSalvar)
                 .addContainerGap())
         );
@@ -252,7 +268,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                     .addComponent(tfSenhaLogin))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnLoginLayout.createSequentialGroup()
-                .addContainerGap(384, Short.MAX_VALUE)
+                .addContainerGap(390, Short.MAX_VALUE)
                 .addComponent(btLogar)
                 .addContainerGap())
         );
@@ -406,6 +422,8 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     private javax.swing.JButton btLogar;
     private javax.swing.JButton btLogin;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lbCadastro;
     private javax.swing.JLabel lbCpfCadastro;
     private javax.swing.JLabel lbCpfLogin;

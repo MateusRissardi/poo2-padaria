@@ -28,7 +28,6 @@ public class Funcionario extends Usuario implements Serializable {
         super(nome, cpf, telefone, senha);
     }
     
-    @Override
     public int getQuantidadePontos(){
         return 0;
     }

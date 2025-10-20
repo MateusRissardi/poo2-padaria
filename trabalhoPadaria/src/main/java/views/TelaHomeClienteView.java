@@ -24,7 +24,7 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
         initComponents();
         this.cliente = umUsu;
         tfUsuario.setText(cliente.getNome());
-        tfPonto.setText("" + umUsu.getQuantidadePontos());
+        tfPonto.setText("" + ((Cliente) umUsu).getQuantidadePontos());
     }
 
     /**
@@ -80,7 +80,7 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
 
         lbUsuario.setText("Usuário:");
 
-        lbPonto.setText("Ponto:");
+        lbPonto.setText("Pontos:");
 
         tfUsuario.setEditable(false);
 
@@ -111,8 +111,8 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
                             .addComponent(lbUsuario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(138, 138, 138)
                         .addComponent(lbTitulo)))

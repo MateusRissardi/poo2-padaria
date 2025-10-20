@@ -23,7 +23,7 @@ import jakarta.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TIPO_USUARIO")
-public abstract class Usuario implements Serializable {
+public class Usuario implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -104,9 +104,6 @@ public abstract class Usuario implements Serializable {
     public String getSenha() {
         return senha;
     }
-    
-    
-    public abstract int getQuantidadePontos();
 
     @Override
     public String toString() {

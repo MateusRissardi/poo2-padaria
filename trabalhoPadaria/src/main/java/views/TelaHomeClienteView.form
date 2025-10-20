@@ -45,8 +45,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfUsuario" min="-2" pref="71" max="-2" attributes="0"/>
                           <Component id="tfPonto" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="tfUsuario" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -143,7 +143,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbPonto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ponto:"/>
+        <Property name="text" type="java.lang.String" value="Pontos:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfUsuario">

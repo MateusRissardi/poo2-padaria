@@ -22,6 +22,7 @@ public class Cliente extends Usuario implements Serializable {
 
     public Cliente(String nome, String cpf, String telefone, String senha) {
         super(nome, cpf, telefone, senha);
+        this.quantidadePontos = 0;
     }
 
     public Cliente() {

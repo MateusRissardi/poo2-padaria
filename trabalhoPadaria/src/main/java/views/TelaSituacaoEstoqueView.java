@@ -4,12 +4,17 @@
  */
 package views;
 
+import entidades.Produto;
+import java.util.List;
+import trabalhopadaria.ProdutoDAO;
+
 /**
  *
  * @author user
  */
 public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     
+    private ProdutoDAO prodDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaSituacaoEstoqueView.class.getName());
 
     /**
@@ -17,8 +22,8 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
      */
     public TelaSituacaoEstoqueView() {
         initComponents();
+        this.prodDao = new ProdutoDAO();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,21 +33,71 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taEstoque = new javax.swing.JTextArea();
+        btConsultar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Controle de Estoque");
+
+        taEstoque.setColumns(20);
+        taEstoque.setRows(5);
+        jScrollPane1.setViewportView(taEstoque);
+
+        btConsultar.setBackground(new java.awt.Color(235, 255, 255));
+        btConsultar.setText("Consultar");
+        btConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 117, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(111, 111, 111))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(btConsultar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(btConsultar)
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        List<Produto> produtos = prodDao.findAll();
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for (Produto p : produtos) {
+            sb.append(p.toString()).append("\n");
+        }
+        
+        taEstoque.setText(sb.toString());
+    }//GEN-LAST:event_btConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +125,9 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConsultar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea taEstoque;
     // End of variables declaration//GEN-END:variables
 }

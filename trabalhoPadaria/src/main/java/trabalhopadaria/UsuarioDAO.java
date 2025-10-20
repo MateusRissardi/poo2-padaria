@@ -93,6 +93,28 @@ public class UsuarioDAO {
         
     }
     
+    public void excluir(String cpf){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            
+            Usuario usuario = em.createQuery(
+            "SELECT u FROM Usuario u WHERE u.cpf = :cpf", Usuario.class)
+            .setParameter("cpf", cpf)
+            .getSingleResult();
+            
+            if (usuario != null){
+                em.remove(usuario);
+            }
+            
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        } finally {
+            em.close();
+        }
+    }
+    
     
     public void excluirTodos(){
         EntityManager em = emf.createEntityManager();

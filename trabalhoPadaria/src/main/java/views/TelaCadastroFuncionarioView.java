@@ -4,6 +4,11 @@
  */
 package views;
 
+import Excecoes.usuarioInvalido;
+import entidades.Funcionario;
+import javax.swing.JOptionPane;
+import trabalhopadaria.UsuarioDAO;
+
 /**
  *
  * @author user
@@ -11,7 +16,8 @@ package views;
 public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroFuncionarioView.class.getName());
-
+    private UsuarioDAO usDao = new UsuarioDAO();
+            
     /**
      * Creates new form TelaCadastroFuncionarioView
      */
@@ -33,9 +39,8 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
         tfTelefoneCadastro = new javax.swing.JTextField();
         lbTelefoneCadastro = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
         tfCpfCadastro = new java.awt.TextField();
         jLabel1 = new javax.swing.JLabel();
         tfNomeCadastro = new java.awt.TextField();
@@ -57,26 +62,25 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
 
-        jTextPane1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextPane1.setText("Cadastro de Funcionário");
-        jScrollPane1.setViewportView(jTextPane1);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Cadastro de Funcionário");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
+                .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -89,7 +93,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
         lbTelefoneCadastro1.setText("Telefone:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
-        jLabel3.setText("Formato: XXX.XXX.XXX-XX");
+        jLabel3.setText("Formato: 11122233344");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
         jLabel4.setText("Formato: XX 9XXXX-XXXX");
@@ -133,7 +137,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
-                                    .addComponent(lbSenhaCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lbSenhaCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -146,10 +150,9 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addComponent(jLabel2)
                     .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNomeCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,7 +168,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
                     .addComponent(tfSenhaCadastro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(btSalvar)
                 .addContainerGap())
         );
@@ -175,15 +178,17 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try{
-            if(tfNomeCadastro.getText().isEmpty() || tfCpfCadastro.getText().isEmpty() || tfTelefoneCadastro.getText().isEmpty() || tfSenhaCadastro.getText().isEmpty()){
+            if(tfNomeCadastro.getText().isEmpty() || tfCpfCadastro.getText().isEmpty() || tfTelefoneCadastro1.getText().isEmpty() || tfSenhaCadastro1.getText().isEmpty()){
                 throw new usuarioInvalido("Um dos campos está vazio, favor validar os campos!");
             }
             else{
                 String nome = tfNomeCadastro.getText();
                 String cpf = tfCpfCadastro.getText();
-                String telefone = tfTelefoneCadastro.getText();
-                String senha = tfSenhaCadastro.getText();
+                String telefone = tfTelefoneCadastro1.getText();
+                String senha = tfSenhaCadastro1.getText();
                 usDao.salvar(new Funcionario(nome, cpf, telefone, senha));
+                JOptionPane.showMessageDialog(this, "Novo funcionário cadastrado com sucesso!", "Novo funcionário", 1);
+                this.dispose();
             }
         }
         catch(usuarioInvalido ex){
@@ -222,10 +227,9 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lbSenhaCadastro;
     private javax.swing.JLabel lbSenhaCadastro1;
     private javax.swing.JLabel lbTelefoneCadastro;

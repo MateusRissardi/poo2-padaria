@@ -236,8 +236,8 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lbCpfCadastro" min="-2" pref="37" max="-2" attributes="0"/>
-                                              <Component id="lbSenhaCadastro" min="-2" pref="37" max="-2" attributes="0"/>
                                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbSenhaCadastro" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
@@ -336,7 +336,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="8" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Formato: XXX.XXX.XXX-XX"/>
+                    <Property name="text" type="java.lang.String" value="Formato: 11122233344"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -358,8 +358,8 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="tfCpfLogin" pref="254" max="32767" attributes="0"/>
                               <Component id="lbCpfLogin" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbSenhaLogin" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="tfSenhaLogin" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbSenhaLogin" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>

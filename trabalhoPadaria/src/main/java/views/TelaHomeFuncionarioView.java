@@ -17,7 +17,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     private TelaCadastroFuncionarioView cadastroFuncionario;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHomeFuncionarioView.class.getName());
     private Usuario cliente = new Cliente();
-    
+    private TelaSituacaoEstoqueView telaSituacaoEstoque;
     /**
      * Creates new form TelaHomeView
      */
@@ -25,7 +25,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         initComponents();
         this.cliente = umUsu;
         tfUsuario.setText(cliente.getNome());
-        tfPonto.setText("" + umUsu.getQuantidadePontos());
+        tfPonto.setText("");
     }
 
     /**
@@ -42,7 +42,6 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         jbCadastrarProduto = new javax.swing.JButton();
         jbRegistrarVenda = new javax.swing.JButton();
         jbSituacaoEstoque = new javax.swing.JButton();
-        JBCadastrarFuncionario = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
         lblPonto = new javax.swing.JLabel();
         tfUsuario = new javax.swing.JTextField();
@@ -70,12 +69,9 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
 
         jbSituacaoEstoque.setBackground(new java.awt.Color(235, 255, 255));
         jbSituacaoEstoque.setText("Situação Estoque");
-
-        JBCadastrarFuncionario.setBackground(new java.awt.Color(235, 255, 255));
-        JBCadastrarFuncionario.setText("Cadastrar Funcionário");
-        JBCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+        jbSituacaoEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCadastrarFuncionarioActionPerformed(evt);
+                jbSituacaoEstoqueActionPerformed(evt);
             }
         });
 
@@ -103,9 +99,8 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jbCadastrarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbSituacaoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(JBCadastrarFuncionario))))
+                                .addComponent(jbCadastrarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                .addComponent(jbSituacaoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -133,9 +128,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
                 .addComponent(jbCadastrarProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSituacaoEstoque)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JBCadastrarFuncionario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -159,18 +152,16 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbRegistrarVendaActionPerformed
 
-    private void JBCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCadastrarFuncionarioActionPerformed
-        cadastroFuncionario = new TelaCadastroFuncionário();
-        cadastroFuncionario.isVisible(true);
-        this.isVisible(false);
-    }//GEN-LAST:event_JBCadastrarFuncionarioActionPerformed
+    private void jbSituacaoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSituacaoEstoqueActionPerformed
+        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView();
+        telaSituacaoEstoque.setVisible(true);
+    }//GEN-LAST:event_jbSituacaoEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBCadastrarFuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

@@ -8,6 +8,7 @@ import Excecoes.Classes.SessaoUsuario;
 import Excecoes.usuarioInvalido;
 import entidades.Admin;
 import entidades.Cliente;
+import entidades.Funcionario;
 import entidades.Usuario;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     private UsuarioDAO usDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginCadastroView.class.getName());
     private SessaoUsuario sessaoUsuario;
+    private TelaHomeFuncionarioView telaHomeF;
+    private TelaHomeAdminView telaHomeA;
 
     /**
      * Creates new form TelaLoginView
@@ -36,7 +39,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         getContentPane().add(pnHome, BorderLayout.CENTER);
         pnHome.setVisible(false);
         usDao = new UsuarioDAO();
-        //usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
+        usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
         pack();
     }
 
@@ -181,7 +184,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         jLabel4.setText("Formato: XX 9XXXX-XXXX");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
-        jLabel3.setText("Formato: XXX.XXX.XXX-XX");
+        jLabel3.setText("Formato: 11122233344");
 
         javax.swing.GroupLayout pnCadastroLayout = new javax.swing.GroupLayout(pnCadastro);
         pnCadastro.setLayout(pnCadastroLayout);
@@ -206,8 +209,8 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                             .addGroup(pnCadastroLayout.createSequentialGroup()
                                 .addGroup(pnCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbCpfCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(lbSenhaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(pnCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -264,8 +267,8 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                 .addGroup(pnLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfCpfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                     .addComponent(lbCpfLogin)
-                    .addComponent(lbSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSenhaLogin))
+                    .addComponent(tfSenhaLogin)
+                    .addComponent(lbSenhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnLoginLayout.createSequentialGroup()
                 .addContainerGap(390, Short.MAX_VALUE)
@@ -349,6 +352,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                 String telefone = tfTelefoneCadastro.getText();
                 String senha = tfSenhaCadastro.getText();
                 usDao.salvar(new Cliente(nome, cpf, telefone, senha));
+                JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso!", "Sucesso ao cadastrar", 1);
             }
         }
         catch(usuarioInvalido ex){
@@ -369,11 +373,24 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
             for( Usuario usuario : usDao.findAll() ){
                 if(usuario.getCpf().equals(tfCpfLogin.getText())){
                     if(usuario.getSenha().equals(tfSenhaLogin.getText())){
-                        telaHome = new TelaHomeClienteView(usDao.encontrarPorID(usuario.getId()));
-                        telaHome.setVisible(true);
-                        this.setVisible(false);
-                        JOptionPane.showMessageDialog(null, "Bem vindo de volta\n " + usuario.getNome());
-                        break;
+                        if (usuario instanceof Cliente){
+                            telaHome = new TelaHomeClienteView(usDao.encontrarPorID(usuario.getId()));
+                            telaHome.setVisible(true);
+                            this.setVisible(false);
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta" + usuario.getNome());
+                            break;
+                        }if (usuario instanceof Funcionario) {
+                            telaHomeF = new TelaHomeFuncionarioView(usDao.encontrarPorID(usuario.getId()));
+                            telaHomeF.setVisible(true);
+                            this.setVisible(false);
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Funcionário" + usuario.getNome());
+                            break;
+                        }if (usuario instanceof Admin){
+                            telaHomeA = new TelaHomeAdminView(usDao.encontrarPorID(usuario.getId()));
+                            telaHomeA.setVisible(true);
+                            this.setVisible(false);
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n" + usuario.getNome());
+                        }
                     }
                     else{
                         throw new usuarioInvalido("Senha incorreta!");

@@ -29,8 +29,7 @@ public class Admin extends Usuario implements Serializable {
     public String toString() {
         return "entidades.Admin[ id=" + id + " ]";
     }
-    
-    @Override
+   
     public int getQuantidadePontos(){
         return 0;
     }

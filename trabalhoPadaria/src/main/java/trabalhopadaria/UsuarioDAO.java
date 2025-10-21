@@ -34,7 +34,7 @@ public class UsuarioDAO {
         Usuario usuarioSalvo = null;
         try{
           if (nomeJaExiste(usuario.getNome(), em)) {
-                throw new usuarioInvalido("O produto com nome '" + usuario.getNome() + "' já existe!");
+                throw new usuarioInvalido("O usuário com nome '" + usuario.getNome() + "' já existe!");
             }
           em.getTransaction().begin();
           usuarioSalvo = em.merge(usuario);

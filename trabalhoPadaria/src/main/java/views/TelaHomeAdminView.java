@@ -18,7 +18,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     private Usuario cliente = new Cliente();
     private TelaCadastroFuncionarioView telaCadastroFuncionario;
     private TelaDeletarUsuarioView telaDeletarUsuario;
-    private TelaSituacaoEstoque telaSituacaoEstoque;
+    private TelaSituacaoEstoqueView telaSituacaoEstoque;
+    private TelaCadastroProdutoView telaCadastrarProduto;
     
     /**
      * Creates new form TelaHomeView
@@ -28,6 +29,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         this.cliente = umUsu;
         tfUsuario.setText(cliente.getNome());
         tfPonto.setText("");
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -57,7 +59,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         setTitle("Home admin");
 
         jbCadastrarProduto.setBackground(new java.awt.Color(235, 255, 255));
-        jbCadastrarProduto.setText("Cadatrar produto");
+        jbCadastrarProduto.setText("Cadastrar produto");
         jbCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCadastrarProdutoActionPerformed(evt);
@@ -183,7 +185,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarProdutoActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroProdutoView telaCadastrarProduto = new TelaCadastroProdutoView();
+        telaCadastrarProduto.setVisible(true);
     }//GEN-LAST:event_jbCadastrarProdutoActionPerformed
 
     private void jbRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarVendaActionPerformed

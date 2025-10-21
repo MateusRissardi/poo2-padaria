@@ -23,6 +23,7 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     public TelaSituacaoEstoqueView() {
         initComponents();
         this.prodDao = new ProdutoDAO();
+        setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +39,7 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
         taEstoque = new javax.swing.JTextArea();
         btConsultar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Controle de Estoque");

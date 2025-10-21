@@ -22,6 +22,7 @@ public class TelaDeletarUsuarioView extends javax.swing.JFrame {
     public TelaDeletarUsuarioView() {
         initComponents();
         this.usDao = new UsuarioDAO();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -103,8 +104,12 @@ public class TelaDeletarUsuarioView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        usDao.excluir(tfCpfDeletado.getText());
-        JOptionPane.showMessageDialog(this, "Usuário com CPF: " + tfCpfDeletado.getText() + " deletado com succeso!", "Usuário deletado", 1);
+        try {
+            usDao.excluir(tfCpfDeletado.getText());
+            JOptionPane.showMessageDialog(this, "Usuário com CPF: " + tfCpfDeletado.getText() + " deletado com succeso!", "Usuário deletado", 1);
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog (this, "Erro: " + ex.getMessage(), "Erro!", 2);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

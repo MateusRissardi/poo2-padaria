@@ -23,6 +23,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
      */
     public TelaCadastroFuncionarioView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -40,6 +40,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         pnHome.setVisible(false);
         usDao = new UsuarioDAO();
         usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
+        setLocationRelativeTo(null);
         pack();
     }
 

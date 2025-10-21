@@ -17,6 +17,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
      */
     public TelaRegistrarVendaView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

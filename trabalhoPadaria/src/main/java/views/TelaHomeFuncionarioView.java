@@ -26,6 +26,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         this.cliente = umUsu;
         tfUsuario.setText(cliente.getNome());
         tfPonto.setText("");
+        setLocationRelativeTo(null);
     }
 
     /**

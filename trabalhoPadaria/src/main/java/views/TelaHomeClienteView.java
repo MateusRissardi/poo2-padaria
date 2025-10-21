@@ -25,6 +25,7 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
         this.cliente = umUsu;
         tfUsuario.setText(cliente.getNome());
         tfPonto.setText("" + ((Cliente) umUsu).getQuantidadePontos());
+        setLocationRelativeTo(null);
     }
 
     /**

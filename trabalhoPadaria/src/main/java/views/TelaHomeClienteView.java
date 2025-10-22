@@ -4,7 +4,6 @@
  */
 package views;
 
-import Excecoes.Classes.SessaoUsuario;
 import entidades.Cliente;
 import entidades.Usuario;
 

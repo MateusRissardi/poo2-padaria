@@ -4,7 +4,6 @@
  */
 package views;
 
-import Excecoes.Classes.SessaoUsuario;
 import Excecoes.usuarioInvalido;
 import entidades.Admin;
 import entidades.Cliente;
@@ -25,7 +24,6 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     private TelaHomeClienteView telaHome;
     private UsuarioDAO usDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginCadastroView.class.getName());
-    private SessaoUsuario sessaoUsuario;
     private TelaHomeFuncionarioView telaHomeF;
     private TelaHomeAdminView telaHomeA;
 
@@ -378,19 +376,19 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
                             telaHome = new TelaHomeClienteView(usDao.encontrarPorID(usuario.getId()));
                             telaHome.setVisible(true);
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta" + usuario.getNome());
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Cliente " + usuario.getNome());
                             break;
                         }if (usuario instanceof Funcionario) {
                             telaHomeF = new TelaHomeFuncionarioView(usDao.encontrarPorID(usuario.getId()));
                             telaHomeF.setVisible(true);
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Funcionário" + usuario.getNome());
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Funcionário " + usuario.getNome());
                             break;
                         }if (usuario instanceof Admin){
                             telaHomeA = new TelaHomeAdminView(usDao.encontrarPorID(usuario.getId()));
                             telaHomeA.setVisible(true);
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n" + usuario.getNome());
+                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Admin " + usuario.getNome());
                         }
                     }
                     else{

@@ -59,6 +59,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
         lbTelefoneCadastro.setText("Telefone:");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Funcionario");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));

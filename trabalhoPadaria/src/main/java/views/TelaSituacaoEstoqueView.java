@@ -4,10 +4,12 @@
  */
 package views;
 
+import entidades.Admin;
 import entidades.Produto;
+import entidades.Usuario;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import trabalhopadaria.ProdutoDAO;
+import views.TableModels.ProdutoTableModel;
 
 /**
  *
@@ -16,15 +18,30 @@ import trabalhopadaria.ProdutoDAO;
 public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     
     private ProdutoDAO prodDao;
+    private ProdutoTableModel tableModel;
+    private Usuario usuario;
+    private TelaEditarProdutoView editarProduto;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaSituacaoEstoqueView.class.getName());
 
     /**
      * Creates new form TelaSituacaoEstoqueView
      */
-    public TelaSituacaoEstoqueView() {
+    public TelaSituacaoEstoqueView(Usuario usuario) {
         initComponents();
         this.prodDao = new ProdutoDAO();
+        this.usuario = usuario;
+        editarProduto = new TelaEditarProdutoView();
+        validarUsuario();
         setLocationRelativeTo(null);
+    }
+    
+    private void validarUsuario(){
+        if(usuario instanceof Admin){
+            btEditar.setVisible(true);
+        }
+        else{
+            btEditar.setVisible(false);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,11 +55,10 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taEstoque = new javax.swing.JTextArea();
         btConsultar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbProdutos = new javax.swing.JTable();
+        btEditar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,13 +74,10 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Controle de Estoque");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Controle de Estoque");
-
-        taEstoque.setColumns(20);
-        taEstoque.setRows(5);
-        jScrollPane1.setViewportView(taEstoque);
 
         btConsultar.setBackground(new java.awt.Color(205, 255, 255));
         btConsultar.setText("Consultar");
@@ -102,23 +115,32 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tbProdutos);
 
+        btEditar.setBackground(new java.awt.Color(205, 255, 255));
+        btEditar.setText("Editar Produto");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(btConsultar))
+                                .addComponent(btConsultar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btEditar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(137, 137, 137)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -127,12 +149,12 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
-                .addComponent(btConsultar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btConsultar)
+                    .addComponent(btEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,21 +162,13 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
 
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
         List<Produto> produtos = prodDao.findAll();
-        
-        StringBuilder sb = new StringBuilder();
-        DefaultTableModel tbModel = (DefaultTableModel)tbProdutos.getModel();
-        tbModel.addRow(gerarMatriz(prodDao.findAll()));
-        
-        taEstoque.setText(sb.toString());
+        tableModel = new ProdutoTableModel(produtos);
+        tbProdutos.setModel(tableModel);
     }//GEN-LAST:event_btConsultarActionPerformed
 
-    private String[] gerarMatriz(List<Produto> produtos){
-        String prod[] =;
-       for(Produto umProd : produtos){
-           prod[].
-       }
-       return prod; 
-    }
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        editarProduto.setVisible(true);
+    }//GEN-LAST:event_btEditarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -163,12 +177,11 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConsultar;
+    private javax.swing.JButton btEditar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea taEstoque;
     private javax.swing.JTable tbProdutos;
     // End of variables declaration//GEN-END:variables
 }

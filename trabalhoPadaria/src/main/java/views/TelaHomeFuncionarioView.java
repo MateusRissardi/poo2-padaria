@@ -4,8 +4,7 @@
  */
 package views;
 
-import Excecoes.Classes.SessaoUsuario;
-import entidades.Cliente;
+import entidades.Funcionario;
 import entidades.Usuario;
 
 /**
@@ -16,15 +15,16 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     
     private TelaCadastroFuncionarioView cadastroFuncionario;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHomeFuncionarioView.class.getName());
-    private Usuario cliente = new Cliente();
+    private Usuario funcionario = new Funcionario();
     private TelaSituacaoEstoqueView telaSituacaoEstoque;
+    private TelaRegistrarVendaView telaRegistrarVenda;
     /**
      * Creates new form TelaHomeView
      */
     public TelaHomeFuncionarioView(Usuario umUsu) {
         initComponents();
-        this.cliente = umUsu;
-        tfUsuario.setText(cliente.getNome());
+        this.funcionario = umUsu;
+        tfUsuario.setText(funcionario.getNome());
         tfPonto.setText("");
         setLocationRelativeTo(null);
     }
@@ -50,7 +50,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Home");
+        setTitle("Home Funcionario");
 
         jbCadastrarProduto.setBackground(new java.awt.Color(205, 255, 255));
         jbCadastrarProduto.setText("Cadastrar produto");
@@ -151,11 +151,12 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCadastrarProdutoActionPerformed
 
     private void jbRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarVendaActionPerformed
-        // TODO add your handling code here:
+        telaRegistrarVenda = new TelaRegistrarVendaView();
+        telaRegistrarVenda.setVisible(true);
     }//GEN-LAST:event_jbRegistrarVendaActionPerformed
 
     private void jbSituacaoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSituacaoEstoqueActionPerformed
-        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView();
+        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView(funcionario);
         telaSituacaoEstoque.setVisible(true);
     }//GEN-LAST:event_jbSituacaoEstoqueActionPerformed
 

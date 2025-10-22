@@ -4,8 +4,7 @@
  */
 package views;
 
-import Excecoes.Classes.SessaoUsuario;
-import entidades.Cliente;
+import entidades.Admin;
 import entidades.Usuario;
 
 /**
@@ -15,19 +14,20 @@ import entidades.Usuario;
 public class TelaHomeAdminView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaHomeAdminView.class.getName());
-    private Usuario cliente = new Cliente();
+    private Usuario admin = new Admin();
     private TelaCadastroFuncionarioView telaCadastroFuncionario;
     private TelaDeletarUsuarioView telaDeletarUsuario;
     private TelaSituacaoEstoqueView telaSituacaoEstoque;
     private TelaCadastroProdutoView telaCadastrarProduto;
+    private TelaRegistrarVendaView telaRegistrarVenda;
     
     /**
      * Creates new form TelaHomeView
      */
     public TelaHomeAdminView(Usuario umUsu) {
         initComponents();
-        this.cliente = umUsu;
-        tfUsuario.setText(cliente.getNome());
+        this.admin = umUsu;
+        tfUsuario.setText(admin.getNome());
         tfPonto.setText("");
         setLocationRelativeTo(null);
     }
@@ -54,6 +54,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jbDeletar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home admin");
@@ -111,6 +113,10 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
 
         jLabel2.setText("Deletar usuário");
 
+        jButton1.setText("Visualizar Vendas");
+
+        jButton2.setText("Visualizar Usuários");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,16 +140,20 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbCadastrarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jbSituacaoEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jbRegistrarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbCadastrarFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel1)))
-                .addContainerGap())
+                            .addComponent(jbCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +163,13 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbRegistrarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbCadastrarProduto)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCadastrarProduto)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSituacaoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
@@ -189,7 +203,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCadastrarProdutoActionPerformed
 
     private void jbRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarVendaActionPerformed
-        // TODO add your handling code here:
+        telaRegistrarVenda = new TelaRegistrarVendaView();
+        telaRegistrarVenda.setVisible(true);
     }//GEN-LAST:event_jbRegistrarVendaActionPerformed
 
     private void jbCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarFuncionarioActionPerformed
@@ -203,7 +218,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbDeletarActionPerformed
 
     private void jbSituacaoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSituacaoEstoqueActionPerformed
-        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView();
+        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView(admin);
         telaSituacaoEstoque.setVisible(true);
     }//GEN-LAST:event_jbSituacaoEstoqueActionPerformed
 
@@ -212,6 +227,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;

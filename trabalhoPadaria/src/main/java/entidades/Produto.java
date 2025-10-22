@@ -6,6 +6,7 @@ package entidades;
 
 import excecoes.nomeInvalido;
 import excecoes.precoInvalido;
+import excecoes.produtoInvalido;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -73,7 +74,17 @@ public class Produto implements Serializable {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        try{
+           if(tipo == null || tipo.isBlank()){
+                throw new produtoInvalido("Nome inválido!");
+            }
+            else{
+                this.tipo = tipo;
+            } 
+        }
+        catch(produtoInvalido ex){
+            System.out.println("Erro: " + ex.getMessage());
+        }
     }
 
     public int getQuantidadeEstoque() {
@@ -81,7 +92,17 @@ public class Produto implements Serializable {
     }
 
     public void setQuantidadeEstoque(int quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+        try{
+           if(quantidadeEstoque < 0){
+                throw new produtoInvalido("Nome inválido!");
+            }
+            else{
+                this.quantidadeEstoque = quantidadeEstoque;
+            } 
+        }
+        catch(produtoInvalido ex){
+            System.out.println("Erro: " + ex.getMessage());
+        }
     }
     
     public double getPreco(){

@@ -32,7 +32,7 @@ public class Cliente extends Usuario implements Serializable {
     public Long getId() {
         return super.getId();
     }
-
+    
     public int  getQuantidadePontos() {
         return quantidadePontos;
     }

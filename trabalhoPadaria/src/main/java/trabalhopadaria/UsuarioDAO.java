@@ -157,4 +157,36 @@ public class UsuarioDAO {
         }
     } 
     
+    public List<Usuario> findAllClientes() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Usuario c WHERE TYPE (c) = Cliente";
+           return em.createQuery(jpql, Usuario.class).getResultList();
+                   
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    public List<Usuario> findAllFuncionarios() { 
+        EntityManager em = emf.createEntityManager();
+        try{
+           String jpql = "SELECT c FROM Usuario c WHERE TYPE (c) = Funcionario";
+           return em.createQuery(jpql, Usuario.class).getResultList();
+                   
+        }
+        catch(Exception ex){
+            System.out.println("Erro: " + ex.getMessage());
+            return java.util.Collections.emptyList();
+        }
+        finally{
+            em.close();
+        }
+    } 
+    
 }

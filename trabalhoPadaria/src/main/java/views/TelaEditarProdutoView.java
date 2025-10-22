@@ -40,13 +40,13 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
         lbNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         lbCategoria = new javax.swing.JLabel();
-        tfCategoria = new javax.swing.JTextField();
         lbPreco = new javax.swing.JLabel();
         tfPreco = new javax.swing.JTextField();
         tfQuantidade = new javax.swing.JTextField();
         lbQuantidade = new javax.swing.JLabel();
         btBuscar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
+        comboCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Produto");
@@ -58,8 +58,6 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
         tfNome.setEditable(false);
 
         lbCategoria.setText("Categoria:");
-
-        tfCategoria.setEditable(false);
 
         lbPreco.setText("Preço:");
 
@@ -76,6 +74,7 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
             }
         });
 
+        btSalvar.setBackground(new java.awt.Color(205, 255, 255));
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,26 +82,32 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
             }
         });
 
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pães", "Doces e Tortas", "Salgados", "Bebidas" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbQuantidade)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(lbCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbQuantidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
+                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btBuscar)
@@ -116,7 +121,7 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
                         .addComponent(lbPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,12 +133,12 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
                     .addComponent(lbNome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbCategoria)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPreco)
+                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbPreco)
-                        .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbCategoria)
+                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,8 +166,7 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
             else{
                 tfNome.setText(produto.getNome());
                 tfNome.setEditable(true);
-                tfCategoria.setText(produto.getTipo());
-                tfCategoria.setEditable(true);
+                comboCategoria.setSelectedItem(produto.getTipo());
                 tfPreco.setText(produto.getPreco() + "");
                 tfPreco.setEditable(true);
                 tfQuantidade.setText(produto.getQuantidadeEstoque() + "");
@@ -177,13 +181,13 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         Produto prod;
         try{
-            if(tfNome.getText().isEmpty() || tfCategoria.getText().isEmpty() || tfQuantidade.getText().isEmpty() || tfPreco.getText().isEmpty()){
+            if(tfNome.getText().isEmpty() || tfQuantidade.getText().isEmpty() || tfPreco.getText().isEmpty()){
                 throw new IllegalArgumentException("Preencha todos os campos!");
             }
             else{
                 prod = proDao.encontrarPorID(Long.valueOf(tfId.getText()));
                 prod.setNome(tfNome.getText());
-                prod.setTipo(tfCategoria.getText());
+                prod.setTipo(comboCategoria.getSelectedItem().toString());
                 prod.setQuantidadeEstoque(Integer.parseInt(tfQuantidade.getText()));
                 prod.setPreco(Double.parseDouble(tfPreco.getText()));
                 proDao.update(prod);
@@ -203,12 +207,12 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JLabel lbCategoria;
     private javax.swing.JLabel lbId;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPreco;
     private javax.swing.JLabel lbQuantidade;
-    private javax.swing.JTextField tfCategoria;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPreco;

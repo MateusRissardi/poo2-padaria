@@ -40,7 +40,6 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         btVerConta = new javax.swing.JButton();
         btProdutos = new javax.swing.JButton();
-        btEditarConta = new javax.swing.JButton();
         btSairConta = new javax.swing.JButton();
         lbUsuario = new javax.swing.JLabel();
         lbPonto = new javax.swing.JLabel();
@@ -66,9 +65,6 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
                 btProdutosActionPerformed(evt);
             }
         });
-
-        btEditarConta.setBackground(new java.awt.Color(235, 255, 255));
-        btEditarConta.setText("Editar Conta");
 
         btSairConta.setBackground(new java.awt.Color(235, 255, 255));
         btSairConta.setText("Sair da Conta");
@@ -102,7 +98,6 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                             .addComponent(btSairConta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btEditarConta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btVerConta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -127,11 +122,9 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
                 .addComponent(spDiv1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(31, 31, 31)
                 .addComponent(btVerConta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btEditarConta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addComponent(btSairConta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,11 +147,14 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btVerContaActionPerformed
 
     private void btProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProdutosActionPerformed
-        // TODO add your handling code here:
+        TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView(cliente);
+        telaSituacaoEstoque.setVisible(true);
     }//GEN-LAST:event_btProdutosActionPerformed
 
     private void btSairContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairContaActionPerformed
-        // TODO add your handling code here:
+        TelaLoginCadastroView telaLogin = new TelaLoginCadastroView();
+        telaLogin.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btSairContaActionPerformed
 
     /**
@@ -166,7 +162,6 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btEditarConta;
     private javax.swing.JButton btProdutos;
     private javax.swing.JButton btSairConta;
     private javax.swing.JButton btVerConta;

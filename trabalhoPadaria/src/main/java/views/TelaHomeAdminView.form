@@ -61,7 +61,7 @@
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jButton1" max="32767" attributes="0"/>
-                          <Component id="jButton2" pref="150" max="32767" attributes="0"/>
+                          <Component id="jbVisualizarUsuarios" pref="150" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -84,7 +84,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbCadastrarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbVisualizarUsuarios" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jbSituacaoEstoque" min="-2" max="-2" attributes="0"/>
@@ -212,13 +212,22 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="cd" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Visualizar Vendas"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jbVisualizarUsuarios">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="cd" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Visualizar Usu&#xe1;rios"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbVisualizarUsuariosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

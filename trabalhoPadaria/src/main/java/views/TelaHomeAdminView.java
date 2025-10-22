@@ -55,7 +55,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         jbDeletar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbVisualizarUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home admin");
@@ -113,9 +113,16 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
 
         jLabel2.setText("Deletar usuário");
 
+        jButton1.setBackground(new java.awt.Color(205, 255, 255));
         jButton1.setText("Visualizar Vendas");
 
-        jButton2.setText("Visualizar Usuários");
+        jbVisualizarUsuarios.setBackground(new java.awt.Color(205, 255, 255));
+        jbVisualizarUsuarios.setText("Visualizar Usuários");
+        jbVisualizarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVisualizarUsuariosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,7 +159,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                            .addComponent(jbVisualizarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -169,7 +176,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCadastrarProduto)
-                    .addComponent(jButton2))
+                    .addComponent(jbVisualizarUsuarios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSituacaoEstoque)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
@@ -222,13 +229,17 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         telaSituacaoEstoque.setVisible(true);
     }//GEN-LAST:event_jbSituacaoEstoqueActionPerformed
 
+    private void jbVisualizarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVisualizarUsuariosActionPerformed
+        TelaVisualizarUsuarios telaVisualizarUsuarios = new TelaVisualizarUsuarios();
+        telaVisualizarUsuarios.setVisible(true);
+    }//GEN-LAST:event_jbVisualizarUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
@@ -238,6 +249,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     private javax.swing.JButton jbDeletar;
     private javax.swing.JButton jbRegistrarVenda;
     private javax.swing.JButton jbSituacaoEstoque;
+    private javax.swing.JButton jbVisualizarUsuarios;
     private javax.swing.JLabel lblPonto;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField tfPonto;

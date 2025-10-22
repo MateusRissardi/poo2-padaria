@@ -5,6 +5,7 @@
 package views;
 
 import Excecoes.usuarioInvalido;
+import entidades.Carrinho;
 import entidades.Produto;
 import excecoes.produtoInvalido;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     
     private ProdutoDAO proDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaAdicionarProdutoCarrinhoView.class.getName());
-    private List<Produto> produtos;
+    private Carrinho produtos;
     private TelaRegistrarVendaView telaRegistrarVenda;
 
     /**
@@ -29,7 +30,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     public TelaAdicionarProdutoCarrinhoView(TelaRegistrarVendaView telaRegistrarVenda) {
         initComponents();
         proDao = new ProdutoDAO();
-        produtos = new ArrayList<Produto>();
+        produtos = new Carrinho();
         this.telaRegistrarVenda = telaRegistrarVenda;
     }
 
@@ -171,7 +172,8 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 tfNome.setText(produto.getNome());
                 tfCategoria.setText(produto.getTipo());
                 tfPreco.setText(produto.getPreco() + "");
-                tfQuantidade.setText(produto.getQuantidadeEstoque() + "");
+                tfQuantidade.setText("");
+                tfQuantidade.setEditable(true);
             }
         }
         catch(usuarioInvalido ex){
@@ -188,8 +190,8 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
             else{
                 umProd = proDao.encontrarPorID(Long.valueOf(tfId.getText()));
                 if(umProd.getQuantidadeEstoque()>0){
-                    this.produtos.add(umProd);
-                    telaRegistrarVenda.atualizarCarrinho(produtos);
+                    this.produtos.setProdutos(umProd, Integer.parseInt(tfQuantidade.getText()));
+                    telaRegistrarVenda.atualizarCarrinho(produtos.getProdutos(), Integer.parseInt(tfQuantidade.getText()));
                 }
                 else{
                     throw new produtoInvalido("Não há mais unidades disponíveis do produto!");

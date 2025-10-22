@@ -71,14 +71,14 @@ public class Carrinho implements Serializable {
         }
     }
 
-    public void setProdutos(Produto umProd){
+    public void setProdutos(Produto umProd, int quantidade){
         try{
-           if(umProd.getQuantidadeEstoque() <= 0){
+           if(umProd.getQuantidadeEstoque() <= 0  || quantidade > umProd.getQuantidadeEstoque()){
             throw new produtoInvalido("Não é possível adicionar o item no carrinho, quantidade de produto excedida!");
             }
             else{
                 produtos.add(umProd);
-                umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() - 1);
+                umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() - quantidade);
                 setValorCarrinho(umProd.getPreco());   
             } 
         }

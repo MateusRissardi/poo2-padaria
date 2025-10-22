@@ -3,14 +3,20 @@ package views.TableModels;
 import entidades.Produto; 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import views.TelaRegistrarVendaView;
+import views.TelaSituacaoEstoqueView;
 
 public class ProdutoTableModel extends AbstractTableModel {
 
     private List<Produto> produtos;
+    private Object tela;
+    private int quantidade;
     private final String[] colunas = {"ID", "Nome", "Categoria", "Preço", "Preço (Pontos)", "Estoque"};
 
-    public ProdutoTableModel(List<Produto> produtos) {
+    public ProdutoTableModel(List<Produto> produtos, Object tela, int quantidade) {
         this.produtos = produtos;
+        this.tela = tela;
+        this.quantidade = quantidade;
     }
 
     @Override
@@ -43,7 +49,12 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 4:
                 return produto.getPrecoPonto();
             case 5:
-                return produto.getQuantidadeEstoque();
+                if (tela instanceof TelaSituacaoEstoqueView){
+                    return produto.getQuantidadeEstoque();
+                }
+                else if(tela instanceof TelaRegistrarVendaView){
+                    return quantidade;
+                }
             default:
                 return null;
         }

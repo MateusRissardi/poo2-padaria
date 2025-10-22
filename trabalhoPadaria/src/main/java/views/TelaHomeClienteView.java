@@ -143,7 +143,8 @@ public class TelaHomeClienteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btVerContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerContaActionPerformed
-        // TODO add your handling code here:
+        TelaDetalhesDaContaView telaDetalhesConta = new TelaDetalhesDaContaView(cliente);
+        telaDetalhesConta.setVisible(true);
     }//GEN-LAST:event_btVerContaActionPerformed
 
     private void btProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProdutosActionPerformed

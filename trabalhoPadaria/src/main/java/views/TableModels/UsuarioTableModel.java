@@ -1,20 +1,18 @@
 package views.TableModels;
 
+import entidades.Admin;
 import entidades.Cliente;
 import entidades.Funcionario;
-import entidades.Produto; 
 import entidades.Usuario;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import views.TelaRegistrarVendaView;
-import views.TelaSituacaoEstoqueView;
 
 public class UsuarioTableModel extends AbstractTableModel {
 
     private List<Usuario> usuarios;
     private Object tela;
     private int quantidade;
-    private final String[] colunas = {"ID", "Nome", "CPF", "Telefone", "Pontos"};
+    private final String[] colunas = {"ID", "Nome", "CPF", "Telefone", "Pontos", "Tipo"};
 
     public UsuarioTableModel(List<Usuario> usuarios, Object tela, int quantidade) {
         this.usuarios = usuarios;
@@ -50,11 +48,20 @@ public class UsuarioTableModel extends AbstractTableModel {
             case 3:
                 return usuario.getTelefone();
             case 4:
-                if (usuario instanceof Funcionario){
-                    return 0;
+                if (usuario instanceof Funcionario || usuario instanceof Admin){
+                    return "N/A";
                 } else {
-                    return ((Cliente) usuario).getQuantidadePontos();
+                    Cliente cliente = (Cliente) usuario;
+                    return cliente.getQuantidadePontos();
                 }
+            case 5:
+                if (usuario instanceof Cliente) {
+                return "Cliente";
+            } else if (usuario instanceof Admin) {
+                return "Admin";
+            } else if (usuario instanceof Funcionario) {
+                return "Funcionário";
+            }
             default:
                 return null;
         }

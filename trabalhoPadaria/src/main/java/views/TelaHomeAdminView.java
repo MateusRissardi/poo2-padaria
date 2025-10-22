@@ -56,6 +56,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jbVisualizarUsuarios = new javax.swing.JButton();
+        btVerConta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home admin");
@@ -124,6 +125,14 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
             }
         });
 
+        btVerConta.setBackground(new java.awt.Color(205, 255, 255));
+        btVerConta.setText("Ver Conta");
+        btVerConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerContaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +168,8 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbVisualizarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                            .addComponent(jbVisualizarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(btVerConta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,7 +188,9 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                     .addComponent(jbCadastrarProduto)
                     .addComponent(jbVisualizarUsuarios))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbSituacaoEstoque)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSituacaoEstoque)
+                    .addComponent(btVerConta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jbCadastrarFuncionario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,11 +246,17 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         telaVisualizarUsuarios.setVisible(true);
     }//GEN-LAST:event_jbVisualizarUsuariosActionPerformed
 
+    private void btVerContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerContaActionPerformed
+        TelaDetalhesDaContaView telaDetalhesConta = new TelaDetalhesDaContaView(admin);
+        telaDetalhesConta.setVisible(true);
+    }//GEN-LAST:event_btVerContaActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btVerConta;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

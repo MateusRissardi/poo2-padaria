@@ -35,11 +35,9 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     
     private void popularClientes(){
         try{
-            for(Usuario usuario : usuarioDao.findAll()){
-                if (usuario instanceof Cliente){
-                    this.cliente = usuario;
-                    cbCliente.addItem(cliente.getNome());
-                }
+            for(Usuario usuario : usuarioDao.findAllClientes()){
+                this.cliente = usuario;
+                cbCliente.addItem(cliente.getNome());
             }
         }
         catch(Exception ex){

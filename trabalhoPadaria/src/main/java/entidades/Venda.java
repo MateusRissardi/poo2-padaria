@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import Excecoes.usuarioInvalido;
 import excecoes.vendaInvalida;
 import excecoes.vendaPontoInvalida;
 import jakarta.persistence.CascadeType;
@@ -15,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 /**
@@ -33,6 +35,9 @@ public class Venda implements Serializable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "carrinho-id")
     private Carrinho carrinho;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "funcionario-id")
+    private Usuario funcionario;
     private String dataCompra;
     private boolean vendaFinalizada;
 
@@ -55,6 +60,24 @@ public class Venda implements Serializable {
 
     public String getDataCompra() {
         return dataCompra;
+    }
+
+    public Usuario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Usuario umFun) {
+        try{
+            if(umFun instanceof Funcionario || umFun instanceof Admin){
+                this.funcionario = umFun;  
+            }
+            else{
+                throw new usuarioInvalido("O usuario não representa um funcionário válido"); 
+            }  
+        }
+        catch(usuarioInvalido ex){
+            System.out.println("Erro: " + ex.getMessage());
+        }
     }
 
     public void setDataCompra() {
@@ -121,7 +144,8 @@ public class Venda implements Serializable {
                     } else {
                         this.vendaFinalizada = true;
                         System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
-                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
+                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + "Funcionário: " 
+                                + funcionario + ", Produtos: ");
                         for(Produto umProd : carrinho.getProdutos()){
                             this.carrinho.getCliente().setQuantidadePontos(umProd.calcPontos() * (-1));
                             System.out.println("Nome: " + umProd.getNome() + ", Preço de pontos: " + umProd.getPrecoPonto());
@@ -134,7 +158,8 @@ public class Venda implements Serializable {
             
             else {
                 System.out.println("Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
-                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: ");
+                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + "Funcionário: " 
+                                + funcionario + ", Produtos: ");
                 for(Produto umProd : carrinho.getProdutos()){
                     this.carrinho.getCliente().setQuantidadePontos(umProd.calcPontos());
                     System.out.println("Nome: " + umProd.getNome() + ", Preço: R$" + umProd.getPreco());
@@ -150,7 +175,8 @@ public class Venda implements Serializable {
     @Override
     public String toString() {
         String texto = "Venda realizada \nId da compra : " + id + ", Cliente: " + this.carrinho.getCliente().getNome() + 
-                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + ", Produtos: \n";
+                        ", Descrição: " + descricao + ", Data de Compra: " + dataCompra + ", Forma de Pagamento: " + formaPagamento + "Funcionário: " 
+                                + funcionario + ", Produtos: \n";
                 for(Produto umProd : carrinho.getProdutos()){
                     texto += "Nome: " + umProd.getNome() + ", Preço: R$" + umProd.getPreco() + "\n";
                 }

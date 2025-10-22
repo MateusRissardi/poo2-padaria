@@ -73,6 +73,7 @@ public class TrabalhoPadaria {
     ven1.setCarrinho(car1);
     ven1.setDataCompra();
     ven1.setFormaPagamento("Ponto");
+    ven1.setFuncionario(func1);
     ven1.confirmarVenda();
     
     ven1.setId(venDao.salvar(ven1).getId());

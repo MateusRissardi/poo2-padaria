@@ -52,15 +52,15 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
 
-        jbCadastrarProduto.setBackground(new java.awt.Color(235, 255, 255));
-        jbCadastrarProduto.setText("Cadatrar produto");
+        jbCadastrarProduto.setBackground(new java.awt.Color(205, 255, 255));
+        jbCadastrarProduto.setText("Cadastrar produto");
         jbCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCadastrarProdutoActionPerformed(evt);
             }
         });
 
-        jbRegistrarVenda.setBackground(new java.awt.Color(235, 255, 255));
+        jbRegistrarVenda.setBackground(new java.awt.Color(205, 255, 255));
         jbRegistrarVenda.setText("Registrar Venda");
         jbRegistrarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +68,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
             }
         });
 
-        jbSituacaoEstoque.setBackground(new java.awt.Color(235, 255, 255));
+        jbSituacaoEstoque.setBackground(new java.awt.Color(205, 255, 255));
         jbSituacaoEstoque.setText("Situação Estoque");
         jbSituacaoEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +146,8 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarProdutoActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroProdutoView telaCadastroProduto = new TelaCadastroProdutoView();
+        telaCadastroProduto.setVisible(true);
     }//GEN-LAST:event_jbCadastrarProdutoActionPerformed
 
     private void jbRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarVendaActionPerformed

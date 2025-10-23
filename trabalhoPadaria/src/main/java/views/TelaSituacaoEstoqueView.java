@@ -161,7 +161,7 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
 
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
         List<Produto> produtos = prodDao.findAll();
-        tableModel = new ProdutoTableModel(produtos, this, 0);
+        tableModel = new ProdutoTableModel(produtos);
         tbProdutos.setModel(tableModel);
     }//GEN-LAST:event_btConsultarActionPerformed
 

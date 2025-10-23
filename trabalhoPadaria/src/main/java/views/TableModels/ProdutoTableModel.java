@@ -3,20 +3,14 @@ package views.TableModels;
 import entidades.Produto; 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import views.TelaRegistrarVendaView;
-import views.TelaSituacaoEstoqueView;
 
 public class ProdutoTableModel extends AbstractTableModel {
 
     private List<Produto> produtos;
-    private Object tela;
-    private int quantidade;
     private final String[] colunas = {"ID", "Nome", "Categoria", "Preço", "Preço (Pontos)", "Estoque"};
 
-    public ProdutoTableModel(List<Produto> produtos, Object tela, int quantidade) {
+    public ProdutoTableModel(List<Produto> produtos) {
         this.produtos = produtos;
-        this.tela = tela;
-        this.quantidade = quantidade;
     }
 
     @Override

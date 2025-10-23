@@ -4,8 +4,8 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import javax.swing.JOptionPane;
-import trabalhopadaria.UsuarioDAO;
 
 /**
  *
@@ -13,7 +13,7 @@ import trabalhopadaria.UsuarioDAO;
  */
 public class TelaDeletarUsuarioView extends javax.swing.JFrame {
     
-    private UsuarioDAO usDao;
+    private UsuarioController usuarioController;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaDeletarUsuarioView.class.getName());
 
     /**
@@ -21,7 +21,7 @@ public class TelaDeletarUsuarioView extends javax.swing.JFrame {
      */
     public TelaDeletarUsuarioView() {
         initComponents();
-        this.usDao = new UsuarioDAO();
+        this.usuarioController = new UsuarioController();
         setLocationRelativeTo(null);
     }
 
@@ -106,7 +106,7 @@ public class TelaDeletarUsuarioView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            usDao.excluir(tfCpfDeletado.getText());
+            usuarioController.apagarUsuario(tfCpfDeletado.getText());
             JOptionPane.showMessageDialog(this, "Usuário com CPF: " + tfCpfDeletado.getText() + " deletado com succeso!", "Usuário deletado", 1);
         } catch (Exception ex){
             JOptionPane.showMessageDialog (this, "Erro: " + ex.getMessage(), "Erro!", 2);

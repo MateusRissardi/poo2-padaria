@@ -4,6 +4,7 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import Excecoes.usuarioInvalido;
 import entidades.Admin;
 import entidades.Cliente;
@@ -24,8 +25,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     private TelaHomeClienteView telaHome;
     private UsuarioDAO usDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaLoginCadastroView.class.getName());
-    private TelaHomeFuncionarioView telaHomeF;
-    private TelaHomeAdminView telaHomeA;
+    private UsuarioController usuarioController;
 
     /**
      * Creates new form TelaLoginView
@@ -36,6 +36,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         getContentPane().add(pnPanel, BorderLayout.WEST);
         getContentPane().add(pnHome, BorderLayout.CENTER);
         pnHome.setVisible(false);
+        usuarioController = new UsuarioController();
         usDao = new UsuarioDAO();
         usDao.salvar(new Admin("admin", "admin", "admin", "admin"));
         setLocationRelativeTo(null);
@@ -183,7 +184,7 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
         jLabel4.setText("Formato: XX 9XXXX-XXXX");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
-        jLabel3.setText("Formato: 11122233344");
+        jLabel3.setText("Formato: 111-222-333.44");
 
         javax.swing.GroupLayout pnCadastroLayout = new javax.swing.GroupLayout(pnCadastro);
         pnCadastro.setLayout(pnCadastroLayout);
@@ -341,22 +342,21 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     }//GEN-LAST:event_btCadastroActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        String nome = tfNomeCadastro.getText();
+        String cpf = tfCpfCadastro.getText();
+        String telefone = tfTelefoneCadastro.getText();
+        String senha = tfSenhaCadastro.getText();
         try{
-            if(tfNomeCadastro.getText().isEmpty() || tfCpfCadastro.getText().isEmpty() || tfTelefoneCadastro.getText().isEmpty() || tfSenhaCadastro.getText().isEmpty()){
-                throw new usuarioInvalido("Um dos campos está vazio, favor validar os campos!");
-            }
-            else{
-                String nome = tfNomeCadastro.getText();
-                String cpf = tfCpfCadastro.getText();
-                String telefone = tfTelefoneCadastro.getText();
-                String senha = tfSenhaCadastro.getText();
-                usDao.salvar(new Cliente(nome, cpf, telefone, senha));
-                JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso!", "Sucesso ao cadastrar", 1);
-            }
+            Cliente clienteSalvo = usuarioController.salvarNovoCliente(nome, cpf, telefone, senha);
+            JOptionPane.showMessageDialog(null, "Cliente " + clienteSalvo.getNome() + " cadastrado com sucesso!");
+            tfNomeCadastro.setText("");
+            tfCpfCadastro.setText("");
+            tfTelefoneCadastro.setText("");
+            tfSenhaCadastro.setText("");
         }
-        catch(usuarioInvalido ex){
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage(), "Erro ao Cadastrar", 1);
-        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao Cadastrar");
+        }            
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
@@ -367,44 +367,45 @@ public class TelaLoginCadastroView extends javax.swing.JFrame {
     }//GEN-LAST:event_btLoginActionPerformed
 
     private void btLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLogarActionPerformed
-        try{
-            int usuariosVistos = 0;
-            for( Usuario usuario : usDao.findAll() ){
-                if(usuario.getCpf().equals(tfCpfLogin.getText())){
-                    if(usuario.getSenha().equals(tfSenhaLogin.getText())){
-                        if (usuario instanceof Cliente){
-                            telaHome = new TelaHomeClienteView(usDao.encontrarPorID(usuario.getId()));
-                            telaHome.setVisible(true);
-                            this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Cliente " + usuario.getNome());
-                            break;
-                        }if (usuario instanceof Funcionario) {
-                            telaHomeF = new TelaHomeFuncionarioView(usDao.encontrarPorID(usuario.getId()));
-                            telaHomeF.setVisible(true);
-                            this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Funcionário " + usuario.getNome());
-                            break;
-                        }if (usuario instanceof Admin){
-                            telaHomeA = new TelaHomeAdminView(usDao.encontrarPorID(usuario.getId()));
-                            telaHomeA.setVisible(true);
-                            this.setVisible(false);
-                            JOptionPane.showMessageDialog(null, "Bem vindo de volta\n Admin " + usuario.getNome());
-                        }
-                    }
-                    else{
-                        throw new usuarioInvalido("Senha incorreta!");
-                    }
-                }
-                else{
-                    usuariosVistos++;
-                }
+        String cpf = tfCpfLogin.getText();
+        String senha = tfSenhaLogin.getText();
+
+        try {
+            // Valida se usuário existe
+            Usuario usuarioAutenticado = usuarioController.autenticarUsuario(cpf, senha);
+
+            if (usuarioAutenticado != null) {
+                if (usuarioAutenticado instanceof Cliente) {
+                    Cliente clienteLogado = (Cliente) usuarioAutenticado;
+                    // Abre a tela Home do Cliente
+                    telaHome = new TelaHomeClienteView(clienteLogado); // Passa o cliente
+                    telaHome.setVisible(true);
+                    this.dispose();
+                    JOptionPane.showMessageDialog(null, "Bem vindo de volta\nCliente " + usuarioAutenticado.getNome());
+                } 
+                else if (usuarioAutenticado instanceof Admin) {
+                     TelaHomeAdminView telaHomeAdmin = new TelaHomeAdminView(usuarioAutenticado);
+                     telaHomeAdmin.setVisible(true);
+                     this.dispose();
+                     JOptionPane.showMessageDialog(null, "Bem vindo de volta\nAdmin " + usuarioAutenticado.getNome());
+                     
+                 } else if (usuarioAutenticado instanceof Funcionario) {
+                     TelaHomeFuncionarioView telaHomeFuncionario = new TelaHomeFuncionarioView(usuarioAutenticado);
+                     telaHomeFuncionario.setVisible(true);
+                     this.dispose();
+                     JOptionPane.showMessageDialog(null, "Bem vindo de volta\nFuncionário " + usuarioAutenticado.getNome());
+                 }
+                 else {
+                     JOptionPane.showMessageDialog(this, "Tipo de usuário não suportado para login nesta tela.", "Acesso Negado", JOptionPane.WARNING_MESSAGE);
+                 }
+                
+            } else {
+                // Falha na autenticação
+                throw new usuarioInvalido("CPF ou Senha incorretos!");
             }
-            if(usuariosVistos == usDao.findAll().size()){
-                throw new usuarioInvalido("Não foi encontrado nenhum usuario!");
-            }
-        }
-        catch(usuarioInvalido ex){
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
+            
+        } catch (usuarioInvalido ex) {
+            JOptionPane.showMessageDialog(this, "Erro de Login: " + ex.getMessage());
         }
     }//GEN-LAST:event_btLogarActionPerformed
 

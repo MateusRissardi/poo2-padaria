@@ -39,17 +39,17 @@
                                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lbTelefone" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfTelefone" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="tfTelefone" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="lbNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfNome" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lbNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfNome" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="lbSenha" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="tfSenha" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>

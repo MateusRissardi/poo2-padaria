@@ -4,6 +4,7 @@
  */
 package entidades;
 
+import Excecoes.usuarioInvalido;
 import excecoes.cpfInvalido;
 import excecoes.nomeInvalido;
 import excecoes.telefoneInvalido;
@@ -57,14 +58,18 @@ public class Usuario implements Serializable {
         return nome;
     }
 
-    public void setNome(String nome) throws nomeInvalido {
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
+    public void setNome(String nome) throws usuarioInvalido {
         try {
             if (nome == null || nome.isBlank()){
-                throw new nomeInvalido("Nome inválido!");
+                throw new usuarioInvalido("Nome inválido!");
             } else {
                 this.nome = nome;
         } 
-        } catch (nomeInvalido e){
+        } catch (usuarioInvalido e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -73,14 +78,14 @@ public class Usuario implements Serializable {
         return cpf;
     }
 
-    public void setCpf(String cpf) throws cpfInvalido {
+    public void setCpf(String cpf) throws usuarioInvalido {
         try{
-          if (cpf == null || cpf.isBlank()){
-              throw new cpfInvalido("CPF inválido!");
+          if (cpf == null || cpf.isBlank() | cpf.length()!= 14){
+              throw new usuarioInvalido("CPF inválido!");
           } else {
               this.cpf = cpf;
           }
-        } catch(cpfInvalido e){
+        } catch(usuarioInvalido e){
             System.out.println("Erro: " + e.getMessage());
         }
     }
@@ -89,14 +94,14 @@ public class Usuario implements Serializable {
         return telefone;
     }
 
-    public void setTelefone(String telefone) throws telefoneInvalido{
+    public void setTelefone(String telefone) throws usuarioInvalido{
         try{
             if(telefone == null || telefone.isBlank()){
-                throw new telefoneInvalido("Telefone inválido!");
+                throw new usuarioInvalido("Telefone inválido!");
             }else{
                 this.telefone = telefone;
             }
-        } catch (telefoneInvalido e) {
+        } catch (usuarioInvalido e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }

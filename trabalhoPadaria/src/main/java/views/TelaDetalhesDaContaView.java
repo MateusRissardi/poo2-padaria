@@ -4,6 +4,7 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import entidades.Usuario;
 import javax.swing.JOptionPane;
 import trabalhopadaria.UsuarioDAO;
@@ -16,7 +17,7 @@ public class TelaDetalhesDaContaView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaDetalhesDaContaView.class.getName());
     private Usuario usuario;
-    private UsuarioDAO usDAO;
+    private UsuarioController usuarioController;
     /**
      * Creates new form TelaDetalhesDaContaView
      */
@@ -25,7 +26,7 @@ public class TelaDetalhesDaContaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.usuario = usuario;
-        this.usDAO = new UsuarioDAO();
+        this.usuarioController = new UsuarioController();
         
         btSalvar.setVisible(false);
         btCancelar.setVisible(false);
@@ -182,7 +183,8 @@ public class TelaDetalhesDaContaView extends javax.swing.JFrame {
         try{
             this.usuario.setTelefone(tfTelefone.getText());
             this.usuario.setNome(tfNome.getText());
-            usDAO.update(usuario);
+            this.usuario.setSenha(tfSenha.getText());
+            usuarioController.atualizarUsuario(usuario);
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Erro", 2);
         }
@@ -190,7 +192,6 @@ public class TelaDetalhesDaContaView extends javax.swing.JFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         tfNome.setEditable(true);
-        tfCpf.setEditable(true);
         tfTelefone.setEditable(true);
         tfSenha.setEditable(true);
         

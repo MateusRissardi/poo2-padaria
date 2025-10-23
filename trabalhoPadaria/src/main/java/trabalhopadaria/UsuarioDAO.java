@@ -9,6 +9,7 @@ import entidades.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -22,10 +23,10 @@ public class UsuarioDAO {
         this.emf = Persistence.createEntityManagerFactory("ConexaoJPA");
     }
     
-    private boolean nomeJaExiste(String nome, EntityManager em) {
-        String jpql = "SELECT COUNT(p) FROM Usuario p WHERE p.nome = :nome";
+    private boolean cpfJaExiste(String cpf, EntityManager em) {
+        String jpql = "SELECT COUNT(p) FROM Usuario p WHERE p.cpf = :cpf";
         Long count = em.createQuery(jpql, Long.class)
-                       .setParameter("nome", nome)
+                       .setParameter("cpf", cpf)
                        .getSingleResult();
         return count > 0;
     }
@@ -33,8 +34,8 @@ public class UsuarioDAO {
         EntityManager em = emf.createEntityManager();
         Usuario usuarioSalvo = null;
         try{
-          if (nomeJaExiste(usuario.getNome(), em)) {
-                throw new usuarioInvalido("O usuário com nome '" + usuario.getNome() + "' já existe!");
+          if (cpfJaExiste(usuario.getCpf(), em)) {
+                throw new usuarioInvalido("O usuário com cpf '" + usuario.getCpf() + "' já existe!");
             }
           em.getTransaction().begin();
           usuarioSalvo = em.merge(usuario);
@@ -140,6 +141,21 @@ public class UsuarioDAO {
         finally{
             em.close();
         }
+    }
+    
+    public Usuario encontrarPorCPF(String cpf){
+        EntityManager em = emf.createEntityManager(); // Use a classe utilitária se a implementou
+    try {
+        String jpql = "SELECT u FROM Usuario u WHERE u.cpf = :cpf"; 
+        TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+        query.setParameter("cpf", cpf); 
+        return query.getSingleResult(); 
+        
+    } catch (Exception e) {
+        return null; 
+    } finally {
+        em.close();
+    }
     }
     
     public List<Usuario> findAll() { 

@@ -1,6 +1,7 @@
 views\TelaLoginCadastroView$1.class
 views\TelaRegistrarVendaView$4.class
 Excecoes\dataInvalida.class
+Controller\VendaController.class
 views\TelaHomeAdminView$5.class
 views\TelaHomeClienteView$2.class
 views\TelaLoginCadastroView$4.class
@@ -36,6 +37,7 @@ entidades\Produto.class
 views\TelaDeletarUsuarioView$1.class
 entidades\Admin.class
 views\TelaHomeAdminView$7.class
+Controller\UsuarioController.class
 views\TelaDetalhesDaContaView$2.class
 views\TelaLoginCadastroView$2.class
 Excecoes\nomeInvalido.class
@@ -55,6 +57,7 @@ views\TelaLoginCadastroView$3.class
 Excecoes\vendaInvalida.class
 views\TelaVisualizarUsuarios$2.class
 views\TelaRegistrarVendaView$3.class
+Controller\ProdutoController.class
 trabalhopadaria\ProdutoDAO.class
 views\TelaHomeAdminView$6.class
 Excecoes\telefoneInvalido.class

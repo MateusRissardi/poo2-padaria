@@ -4,6 +4,7 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import Excecoes.usuarioInvalido;
 import entidades.Funcionario;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroFuncionarioView.class.getName());
     private UsuarioDAO usDao = new UsuarioDAO();
+    private UsuarioController usuarioController;
             
     /**
      * Creates new form TelaCadastroFuncionarioView
@@ -24,6 +26,7 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
     public TelaCadastroFuncionarioView() {
         initComponents();
         setLocationRelativeTo(null);
+        usuarioController = new UsuarioController();
     }
 
     /**
@@ -179,23 +182,21 @@ public class TelaCadastroFuncionarioView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        String nome = tfNomeCadastro.getText();
+        String cpf = tfCpfCadastro.getText();
+        String telefone = tfTelefoneCadastro1.getText();
+        String senha = tfSenhaCadastro1.getText();
         try{
-            if(tfNomeCadastro.getText().isEmpty() || tfCpfCadastro.getText().isEmpty() || tfTelefoneCadastro1.getText().isEmpty() || tfSenhaCadastro1.getText().isEmpty()){
-                throw new usuarioInvalido("Um dos campos está vazio, favor validar os campos!");
-            }
-            else{
-                String nome = tfNomeCadastro.getText();
-                String cpf = tfCpfCadastro.getText();
-                String telefone = tfTelefoneCadastro1.getText();
-                String senha = tfSenhaCadastro1.getText();
-                usDao.salvar(new Funcionario(nome, cpf, telefone, senha));
-                JOptionPane.showMessageDialog(this, "Novo funcionário cadastrado com sucesso!", "Novo funcionário", 1);
-                this.dispose();
-            }
+            Funcionario funcionarioSalvo = usuarioController.salvarNovoFuncionario(nome, cpf, telefone, senha);
+            JOptionPane.showMessageDialog(null, "Funcionario " + funcionarioSalvo.getNome() + " cadastrado com sucesso!");
+            tfNomeCadastro.setText("");
+            tfCpfCadastro.setText("");
+            tfTelefoneCadastro1.setText("");
+            tfSenhaCadastro1.setText("");
         }
-        catch(usuarioInvalido ex){
-            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage(), "Erro ao Cadastrar", 1);
-        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro ao Cadastrar");
+        }  
     }//GEN-LAST:event_btSalvarActionPerformed
 
     /**

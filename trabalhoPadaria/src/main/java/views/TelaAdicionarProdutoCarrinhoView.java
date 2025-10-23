@@ -202,10 +202,11 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                     int i = 0;
                     while(i < Integer.parseInt(tfItens.getText())){
                         this.produtos.setProdutos(umProd);
+                        telaRegistrarVenda.atualizarCarrinho(produtos.getProdutos());
+                        telaRegistrarVenda.setCarrinho(produtos);
                         i++;
                     }
-                    telaRegistrarVenda.atualizarCarrinho(produtos.getProdutos(), Integer.parseInt(tfQuantidade.getText()));
-                    telaRegistrarVenda.setCarrinho(produtos);
+                    
                 }
                 else{
                     throw new produtoInvalido("Não há mais unidades disponíveis do produto!");

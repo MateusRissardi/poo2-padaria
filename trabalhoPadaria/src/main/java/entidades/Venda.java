@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Venda implements Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "funcionario-id")
     private Usuario funcionario;
-    private String dataCompra;
+    private LocalDate dataCompra;
     private boolean vendaFinalizada;
 
     public Venda() {
@@ -59,7 +60,10 @@ public class Venda implements Serializable {
     }
 
     public String getDataCompra() {
-        return dataCompra;
+       if (this.dataCompra == null) {
+            return null;
+        }
+        return this.dataCompra.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public Usuario getFuncionario() {
@@ -81,7 +85,7 @@ public class Venda implements Serializable {
     }
 
     public void setDataCompra() {
-        this.dataCompra = "" + LocalDate.now();
+        this.dataCompra = LocalDate.now();
 
     }
 

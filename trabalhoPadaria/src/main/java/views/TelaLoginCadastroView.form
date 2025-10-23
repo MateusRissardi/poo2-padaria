@@ -336,7 +336,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="8" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Formato: 11122233344"/>
+                    <Property name="text" type="java.lang.String" value="Formato: 111-222-333.44"/>
                   </Properties>
                 </Component>
               </SubComponents>

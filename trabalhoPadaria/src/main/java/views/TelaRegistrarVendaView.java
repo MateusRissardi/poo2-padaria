@@ -38,6 +38,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         this.venda = new Venda();
         popularClientes();
         setLocationRelativeTo(null);
+        venda.setDataCompra();
         tfData.setText(venda.getDataCompra());
     }
     
@@ -279,7 +280,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
                venda = new Venda();
                venda.setFuncionario(usuario);
                venda.setFormaPagamento(cbPagamento.getSelectedItem().toString());
-               JOptionPane.showMessageDialog(null, "Funcionario: " + venda.getFuncionario() + "Pagamento: " + venda.getFormaPagamento()
+               JOptionPane.showMessageDialog(null, "Funcionario: " + venda.getFuncionario().getNome() + "Pagamento: " + venda.getFormaPagamento()
                + ", Cliente: " + cbCliente.getSelectedItem().toString() + ", Valor: " + carrinho.getValorCarrinho());
            }
         }
@@ -288,8 +289,8 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    public void atualizarCarrinho(List<Produto> prod, int quantidade){
-        tableModel = new ProdutoTableModel(prod, this, quantidade);
+    public void atualizarCarrinho(List<Produto> prod){
+        tableModel = new ProdutoTableModel(prod);
         tbProdutos.setModel(tableModel);
         tfValorCarrinho.setText(carrinho.getValorCarrinho() + "");
         tfValorPontos.setText(carrinho.calcularPrecoPonto() + "");

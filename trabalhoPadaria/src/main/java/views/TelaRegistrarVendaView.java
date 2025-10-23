@@ -268,25 +268,48 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        // TODO add your handling code here:
+        telaDeletarProduto = new TelaDeletarProdutoView();
+        telaDeletarProduto.setVisible(true);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        try{
-           if(carrinho.getProdutos() == null){
-               throw new carrinhoInvalido("Não há produtos no carrinho, favor adicionar produtos para seguir com a compra!");
-           }
-           else{
-               venda = new Venda();
-               venda.setFuncionario(usuario);
-               venda.setFormaPagamento(cbPagamento.getSelectedItem().toString());
-               JOptionPane.showMessageDialog(null, "Funcionario: " + venda.getFuncionario().getNome() + "Pagamento: " + venda.getFormaPagamento()
-               + ", Cliente: " + cbCliente.getSelectedItem().toString() + ", Valor: " + carrinho.getValorCarrinho());
-           }
-        }
-        catch(carrinhoInvalido ex){
-            
-        }
+        try {
+            if (carrinho.getProdutos() == null || carrinho.getProdutos().isEmpty()) {
+                throw new carrinhoInvalido("Não há produtos no carrinho, favor adicionar produtos para seguir com a compra!");
+            }
+
+            VendaController vendaController = new VendaController();
+
+            // Pega o cliente selecionado pelo nome (precisa existir método correspondente no UsuarioController)
+            String nomeCliente = cbCliente.getSelectedItem().toString();
+            Usuario cliente = usuarioController.buscarPorNome(nomeCliente); 
+
+            String formaPagamento = cbPagamento.getSelectedItem().toString();
+            String descricao = taDescricao.getText();
+
+            Venda vendaSalva = vendaController.registrarVenda(
+                    usuario, cliente, carrinho, formaPagamento, descricao
+            );
+
+            JOptionPane.showMessageDialog(this,
+                "Venda registrada com sucesso!\n" +
+                "Cliente: " + cliente.getNome() + "\n" +
+                "Funcionário: " + usuario.getNome() + "\n" +
+                "Valor Total: R$ " + carrinho.getValorCarrinho() + "\n" +
+                "Forma de Pagamento: " + formaPagamento
+        );
+
+        // Limpa o carrinho e atualiza a tela
+        carrinho.getProdutos().clear();
+        atualizarCarrinho(carrinho.getProdutos());
+
+    } catch (carrinhoInvalido ex) {
+        JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao registrar venda: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
+}
     }//GEN-LAST:event_btSalvarActionPerformed
 
     public void atualizarCarrinho(List<Produto> prod){

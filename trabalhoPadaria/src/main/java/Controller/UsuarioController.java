@@ -137,4 +137,13 @@ public class UsuarioController {
             throw new usuarioInvalido("Usuário não encontrado.");
         }
     }
+    
+    public Usuario buscarPorNome(String nome) {
+    for (Usuario u : listarTodosClientes()) {
+        if (u.getNome().equalsIgnoreCase(nome)) {
+            return u;
+        }
+    }
+    return null;
+}
 }

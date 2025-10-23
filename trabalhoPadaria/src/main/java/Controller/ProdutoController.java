@@ -51,6 +51,13 @@ public class ProdutoController {
 
         return produtoDAO.update(produtoExistente); 
     }
+    
+    public void excluirProdutoPorId(Long Id){
+        try{
+            produtoDAO.excluir(Id);
+        } catch(Exception e ){
+        }
+    }
 
     //Busca um produto pelo ID.
     public Produto buscarProdutoPorId(Long id) {

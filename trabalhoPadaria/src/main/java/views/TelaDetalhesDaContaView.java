@@ -7,7 +7,6 @@ package views;
 import Controller.UsuarioController;
 import entidades.Usuario;
 import javax.swing.JOptionPane;
-import trabalhopadaria.UsuarioDAO;
 
 /**
  *
@@ -185,6 +184,7 @@ public class TelaDetalhesDaContaView extends javax.swing.JFrame {
             this.usuario.setNome(tfNome.getText());
             this.usuario.setSenha(tfSenha.getText());
             usuarioController.atualizarUsuario(usuario);
+            JOptionPane.showMessageDialog(null, "Usuario editado com sucesso!");
         } catch (Exception e){
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Erro", 2);
         }

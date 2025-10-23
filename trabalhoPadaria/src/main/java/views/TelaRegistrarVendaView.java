@@ -4,6 +4,7 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import Excecoes.carrinhoInvalido;
 import entidades.Carrinho;
 import entidades.Produto;
@@ -11,7 +12,6 @@ import entidades.Usuario;
 import entidades.Venda;
 import java.util.List;
 import javax.swing.JOptionPane;
-import trabalhopadaria.UsuarioDAO;
 import views.TableModels.ProdutoTableModel;
 
 /**
@@ -21,21 +21,21 @@ import views.TableModels.ProdutoTableModel;
 public class TelaRegistrarVendaView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaRegistrarVendaView.class.getName());
-    private UsuarioDAO usuarioDao;
     private Usuario usuario;
     private ProdutoTableModel tableModel;
     private Carrinho carrinho;
     private Venda venda;
+    private UsuarioController usuarioController;
     private TelaAdicionarProdutoCarrinhoView telaAdicionarProduto;
     /**
      * Creates new form TelaRegistrarVendaView
      */
     public TelaRegistrarVendaView(Usuario usuario) {
         initComponents();
-        this.usuarioDao = new UsuarioDAO();
         this.carrinho = new Carrinho();
         this.usuario = usuario;
         this.venda = new Venda();
+        this.usuarioController = new UsuarioController();
         popularClientes();
         setLocationRelativeTo(null);
         venda.setDataCompra();
@@ -45,7 +45,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     private void popularClientes(){
         Usuario cliente;
         try{
-            for(Usuario usuario : usuarioDao.findAllClientes()){
+            for(Usuario usuario : usuarioController.listarTodosClientes()){
                 cliente = usuario;
                 cbCliente.addItem(cliente.getNome());
             }

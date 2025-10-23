@@ -4,11 +4,11 @@
  */
 package views;
 
+import Controller.ProdutoController;
 import entidades.Admin;
 import entidades.Produto;
 import entidades.Usuario;
 import java.util.List;
-import trabalhopadaria.ProdutoDAO;
 import views.TableModels.ProdutoTableModel;
 
 /**
@@ -17,10 +17,10 @@ import views.TableModels.ProdutoTableModel;
  */
 public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     
-    private ProdutoDAO prodDao;
     private ProdutoTableModel tableModel;
     private Usuario usuario;
     private TelaEditarProdutoView editarProduto;
+    private ProdutoController produtoController;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaSituacaoEstoqueView.class.getName());
 
     /**
@@ -28,9 +28,9 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
      */
     public TelaSituacaoEstoqueView(Usuario usuario) {
         initComponents();
-        this.prodDao = new ProdutoDAO();
         this.usuario = usuario;
-        editarProduto = new TelaEditarProdutoView();
+        this.editarProduto = new TelaEditarProdutoView();
+        this.produtoController = new ProdutoController();
         validarUsuario();
         setLocationRelativeTo(null);
     }
@@ -160,7 +160,7 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
-        List<Produto> produtos = prodDao.findAll();
+        List<Produto> produtos = produtoController.listarTodosProdutos();
         tableModel = new ProdutoTableModel(produtos);
         tbProdutos.setModel(tableModel);
     }//GEN-LAST:event_btConsultarActionPerformed

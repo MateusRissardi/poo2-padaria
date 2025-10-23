@@ -1,4 +1,5 @@
 views\TelaLoginCadastroView$1.class
+views\TelaHomeFuncionarioView$5.class
 views\TelaRegistrarVendaView$4.class
 Excecoes\dataInvalida.class
 Controller\VendaController.class
@@ -10,6 +11,7 @@ entidades\Funcionario.class
 Excecoes\precoInvalido.class
 views\TelaDetalhesDaContaView$1.class
 trabalhopadaria\UsuarioDAO.class
+views\TelaHomeAdminView$8.class
 views\TelaLoginCadastroView.class
 views\TableModels\UsuarioTableModel.class
 views\TelaSituacaoEstoqueView$2.class

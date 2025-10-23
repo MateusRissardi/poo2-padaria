@@ -4,9 +4,7 @@
  */
 package trabalhopadaria;
 
-import Excecoes.usuarioInvalido;
 import entidades.Produto;
-import entidades.Usuario;
 import excecoes.produtoInvalido;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

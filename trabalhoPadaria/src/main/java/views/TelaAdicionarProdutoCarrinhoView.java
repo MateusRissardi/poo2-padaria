@@ -4,24 +4,21 @@
  */
 package views;
 
+import Controller.ProdutoController;
 import Excecoes.usuarioInvalido;
 import entidades.Carrinho;
 import entidades.Produto;
 import excecoes.produtoInvalido;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
-import trabalhopadaria.ProdutoDAO;
-
 /**
  *
  * @author mateu
  */
 public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     
-    private ProdutoDAO proDao;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaAdicionarProdutoCarrinhoView.class.getName());
     private Carrinho produtos;
+    private ProdutoController produtoController;
     private TelaRegistrarVendaView telaRegistrarVenda;
 
     /**
@@ -29,7 +26,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
      */
     public TelaAdicionarProdutoCarrinhoView(TelaRegistrarVendaView telaRegistrarVenda) {
         initComponents();
-        proDao = new ProdutoDAO();
+        this.produtoController = new ProdutoController();
         produtos = new Carrinho();
         this.telaRegistrarVenda = telaRegistrarVenda;
     }
@@ -170,7 +167,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         Long id = Long.parseLong(tfId.getText());
-        Produto produto = proDao.encontrarPorID(id);
+        Produto produto = produtoController.buscarProdutoPorId(id);
         try{
             if(tfId.getText().equals("")){
                 throw new usuarioInvalido("Favor preencher o campo ID para ser realizado a busca!");
@@ -197,7 +194,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 throw new IllegalArgumentException("Preencha todos os campos!");
             }
             else{
-                umProd = proDao.encontrarPorID(Long.valueOf(tfId.getText()));
+                umProd = produtoController.buscarProdutoPorId(Long.valueOf(tfId.getText()));
                 if(umProd.getQuantidadeEstoque()>Integer.parseInt(tfItens.getText())){
                     int i = 0;
                     while(i < Integer.parseInt(tfItens.getText())){
@@ -216,7 +213,6 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
         }
-        
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     /**

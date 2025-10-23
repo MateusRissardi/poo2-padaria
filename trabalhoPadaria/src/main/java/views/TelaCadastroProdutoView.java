@@ -4,9 +4,10 @@
  */
 package views;
 
+import Controller.ProdutoController;
 import entidades.Produto;
+import excecoes.produtoInvalido;
 import javax.swing.JOptionPane;
-import trabalhopadaria.ProdutoDAO;
 
 /**
  *
@@ -15,13 +16,13 @@ import trabalhopadaria.ProdutoDAO;
 public class TelaCadastroProdutoView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroProdutoView.class.getName());
-    private ProdutoDAO prodDAO;
+    private ProdutoController produtoController;
     /**
      * Creates new form TelaCadastroProdutoView
      */
     public TelaCadastroProdutoView() {
         initComponents();
-        this.prodDAO = new ProdutoDAO();
+        this.produtoController = new ProdutoController();
         setLocationRelativeTo(null);
     }
 
@@ -172,9 +173,9 @@ public class TelaCadastroProdutoView extends javax.swing.JFrame {
         double preco = Double.parseDouble(tfPrecoProduto.getText());
         
         try {
-            prodDAO.salvar(new Produto(nome, categoria, quantidade, preco));
+            produtoController.salvarNovoProduto(nome, categoria, quantidade, preco);
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "Sucesso", 1);
-        } catch (Exception ex){
+        } catch (produtoInvalido ex){
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage(), "Erro!", 2);
         }
     }//GEN-LAST:event_btCadastrarProdutoActionPerformed

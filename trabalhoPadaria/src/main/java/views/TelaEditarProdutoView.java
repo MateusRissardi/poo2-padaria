@@ -4,10 +4,10 @@
  */
 package views;
 
+import Controller.ProdutoController;
 import Excecoes.usuarioInvalido;
 import entidades.Produto;
 import javax.swing.JOptionPane;
-import trabalhopadaria.ProdutoDAO;
 
 /**
  *
@@ -15,7 +15,7 @@ import trabalhopadaria.ProdutoDAO;
  */
 public class TelaEditarProdutoView extends javax.swing.JFrame {
     
-    private ProdutoDAO proDao;
+    private ProdutoController produtoController;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEditarProdutoView.class.getName());
 
     /**
@@ -23,7 +23,7 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
      */
     public TelaEditarProdutoView() {
         initComponents();
-        proDao = new ProdutoDAO();
+        this.produtoController = new ProdutoController();
     }
 
     /**
@@ -133,12 +133,13 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
                     .addComponent(lbNome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPreco)
-                    .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbCategoria)
-                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbPreco)
+                        .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,7 +156,7 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         Long id = Long.parseLong(tfId.getText());
-        Produto produto = proDao.encontrarPorID(id);
+        Produto produto = produtoController.buscarProdutoPorId(id);
         try{
             if(tfId.getText().equals("")){
                 throw new usuarioInvalido("Favor preencher o campo ID para ser realizado a busca!");
@@ -179,18 +180,18 @@ public class TelaEditarProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Produto prod;
         try{
-            if(tfNome.getText().isEmpty() || tfQuantidade.getText().isEmpty() || tfPreco.getText().isEmpty()){
+            if(tfNome.getText() == "" || tfQuantidade.getText() == "" || tfPreco.getText() == ""){
                 throw new IllegalArgumentException("Preencha todos os campos!");
             }
             else{
-                prod = proDao.encontrarPorID(Long.valueOf(tfId.getText()));
-                prod.setNome(tfNome.getText());
-                prod.setTipo(comboCategoria.getSelectedItem().toString());
-                prod.setQuantidadeEstoque(Integer.parseInt(tfQuantidade.getText()));
-                prod.setPreco(Double.parseDouble(tfPreco.getText()));
-                proDao.update(prod);
+                Long id = Long.valueOf(tfId.getText());
+                String nome =  tfNome.getText();
+                String tipo = comboCategoria.getSelectedItem().toString();
+                int quantidade = Integer.parseInt(tfQuantidade.getText());
+                double preco = Double.parseDouble(tfPreco.getText());
+                produtoController.atualizarProduto(id, nome, tipo, quantidade, preco);
+                JOptionPane.showMessageDialog(null, "Produto editado com sucesso!");
             }
         }
         catch(Exception ex){

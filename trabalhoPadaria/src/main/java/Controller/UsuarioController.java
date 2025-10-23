@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller; // Crie um novo pacote para os controllers
+package Controller;
 
 import Excecoes.usuarioInvalido;
 import entidades.Cliente;
@@ -10,40 +10,31 @@ import entidades.Funcionario;
 import entidades.Usuario;
 import jakarta.persistence.NoResultException;
 import java.util.List;
-import trabalhopadaria.UsuarioDAO; // Importe seu DAO
+import trabalhopadaria.UsuarioDAO;
 
 public class UsuarioController {
 
     private UsuarioDAO usuarioDAO;
 
     public UsuarioController() {
-        this.usuarioDAO = new UsuarioDAO(); // O Controller instancia o DAO
+        this.usuarioDAO = new UsuarioDAO();
     }
 
-    /**
-     * Tenta autenticar um usuário pelo CPF e senha.
-     * @param cpf O CPF digitado.
-     * @param senha A senha digitada.
-     * @return O objeto Usuario se a autenticação for bem-sucedida, null caso contrário.
-     */
+    //Tenta autenticar um usuário pelo CPF e senha.
     public Usuario autenticarUsuario(String cpf, String senha) {
         if (cpf == null || cpf.trim().isEmpty() || senha == null || senha.isEmpty()) {
-            // Validação básica de entrada
             return null;
         }
         try {
-            // Tenta encontrar o usuário pelo CPF (você precisará criar este método no DAO)
             Usuario usuario = usuarioDAO.encontrarPorCPF(cpf.trim()); 
-            
             if (usuario != null && usuario.getSenha().equals(senha)) {
                 return usuario; // Autenticação bem-sucedida
             } else {
                 return null; // Senha incorreta ou usuário não encontrado
             }
         } catch (NoResultException e) {
-            return null; // Usuário não encontrado no banco
+            return null;
         } catch (Exception e) {
-            // Logar o erro real seria bom aqui
             System.err.println("Erro ao autenticar usuário: " + e.getMessage());
             return null;
         }
@@ -82,30 +73,37 @@ public class UsuarioController {
         Funcionario novoFuncionario = new Funcionario(nome.trim(), cpf.trim(), telefone.trim(), senha);
         return (Funcionario) usuarioDAO.salvar(novoFuncionario); 
     }
+    // Lista todos os usuarios salvos no banco
     public List<Usuario> listarTodos() {
         return usuarioDAO.findAll(); 
     }
     
+    // Atualiza um usuario específico no banco
     public void atualizarUsuario(Usuario usuario){
         usuarioDAO.update(usuario);
     }
     
+    // Lista todos os clientes salvos no banco
     public List<Usuario> listarTodosClientes() {
         return usuarioDAO.findAllClientes(); 
     }
     
+    // Lista todos os funcionarios salvos no banco
     public List<Usuario> listarTodosFuncionarios() {
         return usuarioDAO.findAllFuncionarios(); 
     }
     
+    // Lista todos os admins salvos no banco
     public List<Usuario> listarTodosAdmins() {
         return usuarioDAO.findAllAdmins(); 
     }
 
+    // Busca um usuarios via ID no banco
     public Usuario buscarUsuarioPorId(Long id) {
         return usuarioDAO.encontrarPorID(id);
     }
     
+    // Apaga um usuario por meio do CPF cadastrado
     public void apagarUsuario(String cpf) throws usuarioInvalido{
         List<Usuario> usuarios = listarTodos();
         int contador = 0;
@@ -122,6 +120,8 @@ public class UsuarioController {
         }
         
     }
+    
+    // Apaga um usuario por meio do Id cadastrado
     public void apagarUsuario(Long id) throws usuarioInvalido{
         List<Usuario> usuarios = listarTodos();
         int contador = 0;

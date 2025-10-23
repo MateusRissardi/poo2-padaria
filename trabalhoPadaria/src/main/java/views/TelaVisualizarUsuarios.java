@@ -4,6 +4,7 @@
  */
 package views;
 
+import Controller.UsuarioController;
 import entidades.Usuario;
 import java.util.List;
 import trabalhopadaria.UsuarioDAO;
@@ -15,15 +16,15 @@ import views.TableModels.UsuarioTableModel;
 public class TelaVisualizarUsuarios extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaVisualizarUsuarios.class.getName());
-    private UsuarioDAO usDAO;
     private UsuarioTableModel tableModel;
+    private UsuarioController usuarioController;
     /**
      * Creates new form TelaVisualizarUsuarios
      */
     public TelaVisualizarUsuarios() {
         initComponents();
+        this.usuarioController = new UsuarioController();
         setLocationRelativeTo(null);
-        this.usDAO = new UsuarioDAO();
     }
 
     /**
@@ -42,6 +43,7 @@ public class TelaVisualizarUsuarios extends javax.swing.JFrame {
         comboTipo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Visualizar Usuários");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Visualizar Usuários");
@@ -124,15 +126,15 @@ public class TelaVisualizarUsuarios extends javax.swing.JFrame {
         String tipoUsuario = comboTipo.getSelectedItem().toString().toUpperCase();
         List<Usuario> usuarios;
         if (tipoUsuario.equals("CLIENTES")){
-            usuarios = usDAO.findAllClientes();
+            usuarios = usuarioController.listarTodosClientes();
         }else if(tipoUsuario.equals("FUNCIONÁRIOS")) {
-            usuarios = usDAO.findAllFuncionarios();
+            usuarios = usuarioController.listarTodosFuncionarios();
         }
         else if(tipoUsuario.equals("ADMINS")){
-            usuarios = usDAO.findAllAdmins();
+            usuarios = usuarioController.listarTodosAdmins();
         }
         else{
-            usuarios = usDAO.findAll();
+            usuarios = usuarioController.listarTodos();
         }
         tableModel = new UsuarioTableModel(usuarios, this, 0);
         table.setModel(tableModel);

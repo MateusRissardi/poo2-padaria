@@ -41,7 +41,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 3:
                 return produto.getPreco();
             case 4:
-                return produto.getPrecoPonto();
+                return produto.calcPontos();
             case 5:
                 return produto.getQuantidadeEstoque();
             default:

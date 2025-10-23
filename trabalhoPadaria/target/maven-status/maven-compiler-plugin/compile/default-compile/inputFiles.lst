@@ -25,9 +25,12 @@ C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\traba
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\trabalhopadaria\VendaDAO.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TableModels\ProdutoTableModel.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TableModels\UsuarioTableModel.java
+C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TableModels\VendaTableModel.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaAdicionarProdutoCarrinhoView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaCadastroFuncionarioView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaCadastroProdutoView.java
+C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaDeletarProdutoCarrinhoView.java
+C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaDeletarProdutoView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaDeletarUsuarioView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaDetalhesDaContaView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaEditarProdutoView.java
@@ -38,3 +41,4 @@ C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaRegistrarVendaView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaSituacaoEstoqueView.java
 C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaVisualizarUsuarios.java
+C:\Users\mateu\Documents\GitHub\poo2-padaria\trabalhoPadaria\src\main\java\views\TelaVisualizarVendasView.java

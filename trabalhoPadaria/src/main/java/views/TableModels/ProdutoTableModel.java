@@ -17,6 +17,10 @@ public class ProdutoTableModel extends AbstractTableModel {
     public int getRowCount() {
         return produtos.size();
     }
+    
+    public void setProdutos(List<Produto> produtos) { 
+        this.produtos = produtos;
+    }
 
     @Override
     public int getColumnCount() {

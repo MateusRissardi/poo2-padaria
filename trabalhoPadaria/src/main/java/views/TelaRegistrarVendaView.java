@@ -6,7 +6,9 @@ package views;
 
 import Controller.UsuarioController;
 import Excecoes.carrinhoInvalido;
+import Controller.VendaController;
 import entidades.Carrinho;
+import entidades.Cliente;
 import entidades.Produto;
 import entidades.Usuario;
 import entidades.Venda;
@@ -23,8 +25,8 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaRegistrarVendaView.class.getName());
     private Usuario usuario;
     private ProdutoTableModel tableModel;
-    private Carrinho carrinho;
     private Venda venda;
+    private VendaController vendaController;
     private UsuarioController usuarioController;
     private TelaAdicionarProdutoCarrinhoView telaAdicionarProduto;
     /**
@@ -32,11 +34,12 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
      */
     public TelaRegistrarVendaView(Usuario usuario) {
         initComponents();
-        this.carrinho = new Carrinho();
         this.usuario = usuario;
         this.venda = new Venda();
         this.usuarioController = new UsuarioController();
+        this.vendaController = new VendaController();
         popularClientes();
+        atualizarCarrinho();
         setLocationRelativeTo(null);
         venda.setDataCompra();
         tfData.setText(venda.getDataCompra());
@@ -44,15 +47,11 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     
     private void popularClientes(){
         Usuario cliente;
-        try{
-            for(Usuario usuario : usuarioController.listarTodosClientes()){
-                cliente = usuario;
-                cbCliente.addItem(cliente.getNome());
-            }
+        for(Usuario usuario : usuarioController.listarTodosClientes()){
+            cliente = (Cliente)usuario;
+            cbCliente.addItem(usuario.getNome());
         }
-        catch(Exception ex){
-            
-        }
+        
     }
     
     /**
@@ -262,46 +261,39 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        telaAdicionarProduto = new TelaAdicionarProdutoCarrinhoView(this);
+        telaAdicionarProduto = new TelaAdicionarProdutoCarrinhoView(this, this.vendaController);
         telaAdicionarProduto.setVisible(true);
         
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        telaDeletarProduto = new TelaDeletarProdutoView();
+        TelaDeletarProdutoCarrinhoView telaDeletarProduto = new TelaDeletarProdutoCarrinhoView(this, this.vendaController);
         telaDeletarProduto.setVisible(true);
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            if (carrinho.getProdutos() == null || carrinho.getProdutos().isEmpty()) {
+            if (vendaController.getCarrinho().getProdutos() == null || vendaController.getCarrinho().getProdutos().isEmpty()) {
                 throw new carrinhoInvalido("Não há produtos no carrinho, favor adicionar produtos para seguir com a compra!");
-            }
-
-            VendaController vendaController = new VendaController();
-
-            // Pega o cliente selecionado pelo nome (precisa existir método correspondente no UsuarioController)
+            }            
             String nomeCliente = cbCliente.getSelectedItem().toString();
             Usuario cliente = usuarioController.buscarPorNome(nomeCliente); 
 
             String formaPagamento = cbPagamento.getSelectedItem().toString();
             String descricao = taDescricao.getText();
 
-            Venda vendaSalva = vendaController.registrarVenda(
-                    usuario, cliente, carrinho, formaPagamento, descricao
-            );
+            Venda vendaSalva = vendaController.finalizarVenda(nomeCliente, formaPagamento, descricao, usuario.getNome());
 
             JOptionPane.showMessageDialog(this,
                 "Venda registrada com sucesso!\n" +
                 "Cliente: " + cliente.getNome() + "\n" +
                 "Funcionário: " + usuario.getNome() + "\n" +
-                "Valor Total: R$ " + carrinho.getValorCarrinho() + "\n" +
+                "Valor Total: R$ " + vendaController.getCarrinho().getValorCarrinho() + "\n" +
                 "Forma de Pagamento: " + formaPagamento
         );
 
-        // Limpa o carrinho e atualiza a tela
-        carrinho.getProdutos().clear();
-        atualizarCarrinho(carrinho.getProdutos());
+        vendaController.getCarrinho().getProdutos().clear();
+        atualizarCarrinho();
 
     } catch (carrinhoInvalido ex) {
         JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -309,18 +301,21 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Erro ao registrar venda: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     }
-}
+
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    public void atualizarCarrinho(List<Produto> prod){
-        tableModel = new ProdutoTableModel(prod);
-        tbProdutos.setModel(tableModel);
-        tfValorCarrinho.setText(carrinho.getValorCarrinho() + "");
-        tfValorPontos.setText(carrinho.calcularPrecoPonto() + "");
-    }
-    
-    public void setCarrinho(Carrinho umCar){
-        this.carrinho = umCar;
+    public void atualizarCarrinho(){
+        List<Produto> prod = vendaController.getCarrinho().getProdutos();
+        if (tableModel == null) {
+            tableModel = new ProdutoTableModel(prod);
+            tbProdutos.setModel(tableModel);
+        }
+        else{
+            tableModel.setProdutos(prod);
+            tableModel.fireTableDataChanged();
+        }
+        tfValorCarrinho.setText(vendaController.getCarrinho().getValorCarrinho() + "");
+        tfValorPontos.setText(vendaController.getCarrinho().calcularPrecoPonto() + "");
     }
     /**
      * @param args the command line arguments
@@ -350,3 +345,4 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     private javax.swing.JTextField tfValorPontos;
     // End of variables declaration//GEN-END:variables
 }
+

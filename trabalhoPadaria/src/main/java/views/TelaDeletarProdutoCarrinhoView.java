@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
  *
  * @author mateu
  */
-public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
+public class TelaDeletarProdutoCarrinhoView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaAdicionarProdutoCarrinhoView.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaDeletarProdutoCarrinhoView.class.getName());
     private ProdutoController produtoController;
     private VendaController vendaController;
     private TelaRegistrarVendaView telaRegistrarVenda;
@@ -25,7 +25,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     /**
      * Creates new form TelaEditarProduto
      */
-    public TelaAdicionarProdutoCarrinhoView(TelaRegistrarVendaView telaRegistrarVenda, VendaController vendaController) {
+    public TelaDeletarProdutoCarrinhoView(TelaRegistrarVendaView telaRegistrarVenda, VendaController vendaController) {
         initComponents();
         this.produtoController = new ProdutoController();
         this.vendaController = vendaController;
@@ -52,12 +52,10 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
         tfQuantidade = new javax.swing.JTextField();
         lbQuantidade = new javax.swing.JLabel();
         btBuscar = new javax.swing.JButton();
-        btAdicionar = new javax.swing.JButton();
-        lbItens = new javax.swing.JLabel();
-        tfItens = new javax.swing.JTextField();
+        btExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar Produto ao Carrinho");
+        setTitle("Deletar Produto ao Carrinho");
 
         lbId.setText("ID:");
 
@@ -84,14 +82,12 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
             }
         });
 
-        btAdicionar.setText("Adicionar");
-        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAdicionarActionPerformed(evt);
+                btExcluirActionPerformed(evt);
             }
         });
-
-        lbItens.setText("Itens:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +99,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btAdicionar))
+                        .addComponent(btExcluir))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -127,11 +123,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbItens, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfItens, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,13 +145,11 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbQuantidade)
-                    .addComponent(lbItens)
-                    .addComponent(tfItens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbQuantidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btBuscar)
-                    .addComponent(btAdicionar))
+                    .addComponent(btExcluir))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -188,31 +178,22 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btBuscarActionPerformed
 
-    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         Produto umProd;
-    try {
-        if (tfId.getText().isEmpty() || tfItens.getText().isEmpty()) { // Verifique tfItens também
-            throw new IllegalArgumentException("Preencha o ID e a Quantidade de Itens!");
+        try{
+            if(tfId.getText().isEmpty()){
+                throw new IllegalArgumentException("Preencha todos os campos!");
+            }
+            else{
+                umProd = produtoController.buscarProdutoPorId(Long.valueOf(tfId.getText()));
+                vendaController.removerProdutoDoCarrinho(umProd.getId());
+                telaRegistrarVenda.atualizarCarrinho();            
+                }
+            }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Erro: " + ex.getMessage());
         }
-
-        long produtoId = Long.parseLong(tfId.getText());
-        int quantidadeAdicionar = Integer.parseInt(tfItens.getText());
-
-        if (quantidadeAdicionar <= 0) {
-            throw new IllegalArgumentException("A quantidade de itens deve ser maior que zero.");
-        }
-        vendaController.adicionarProdutoAoCarrinho(produtoId, quantidadeAdicionar);
-
-        telaRegistrarVenda.atualizarCarrinho();
-        this.dispose();
-
-    } catch (produtoInvalido | IllegalArgumentException ex) { // Captura exceções específicas
-        JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage(), "Erro ao Adicionar", JOptionPane.WARNING_MESSAGE);
-    } catch (Exception ex) { // Captura outros erros inesperados
-        logger.log(java.util.logging.Level.SEVERE, "Erro inesperado ao adicionar produto", ex);
-        JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado: " + ex.getMessage(), "Erro Crítico", JOptionPane.ERROR_MESSAGE);
-    }
-    }//GEN-LAST:event_btAdicionarActionPerformed
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,17 +201,15 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btExcluir;
     private javax.swing.JLabel lbCategoria;
     private javax.swing.JLabel lbId;
-    private javax.swing.JLabel lbItens;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPreco;
     private javax.swing.JLabel lbQuantidade;
     private javax.swing.JTextField tfCategoria;
     private javax.swing.JTextField tfId;
-    private javax.swing.JTextField tfItens;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPreco;
     private javax.swing.JTextField tfQuantidade;

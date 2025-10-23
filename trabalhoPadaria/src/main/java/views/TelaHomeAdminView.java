@@ -117,6 +117,11 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(205, 255, 255));
         jButton1.setText("Visualizar Vendas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jbVisualizarUsuarios.setBackground(new java.awt.Color(205, 255, 255));
         jbVisualizarUsuarios.setText("Visualizar Usuários");
@@ -268,6 +273,11 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         telaLogin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btSairContaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        TelaVisualizarVendasView telaVisualizarVendas = new TelaVisualizarVendasView();
+        telaVisualizarVendas.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

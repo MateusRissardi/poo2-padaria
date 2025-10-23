@@ -30,12 +30,24 @@ public class UsuarioDAO {
                        .getSingleResult();
         return count > 0;
     }
+    
+    private boolean nomeJaExiste(String nome, EntityManager em) {
+        String jpql = "SELECT COUNT(p) FROM Usuario p WHERE p.nome = :nome";
+        Long count = em.createQuery(jpql, Long.class)
+                       .setParameter("nome", nome)
+                       .getSingleResult();
+        return count > 0;
+    }
+    
     public Usuario salvar(Usuario usuario){
         EntityManager em = emf.createEntityManager();
         Usuario usuarioSalvo = null;
         try{
           if (cpfJaExiste(usuario.getCpf(), em)) {
                 throw new usuarioInvalido("O usuário com cpf '" + usuario.getCpf() + "' já existe!");
+            }
+          if (nomeJaExiste(usuario.getCpf(), em)) {
+                throw new usuarioInvalido("O usuário com nome '" + usuario.getNome() + "' já existe!");
             }
           em.getTransaction().begin();
           usuarioSalvo = em.merge(usuario);
@@ -142,6 +154,20 @@ public class UsuarioDAO {
             em.close();
         }
     }
+    
+    public Usuario encontrarPorNome(String nome) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        String jpql = "SELECT u FROM Usuario u WHERE u.nome = :nome";
+        TypedQuery<Usuario> query = em.createQuery(jpql, Usuario.class);
+        query.setParameter("nome", nome);
+        return query.getSingleResult(); 
+    } catch (Exception e) {
+        return null; 
+    } finally {
+        em.close();
+    }
+}
     
     public Usuario encontrarPorCPF(String cpf){
         EntityManager em = emf.createEntityManager(); // Use a classe utilitária se a implementou

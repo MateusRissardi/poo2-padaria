@@ -87,7 +87,7 @@ public class VendaController {
 
 
     // Finaliza a venda, persistindo a Venda e o Carrinho associado.
-    public Venda finalizarVenda(String nomeClienteSelecionado, String formaPagamento, String descricao, String nomeFuncionario) throws Exception {
+    public Venda finalizarVenda(String nomeClienteSelecionado, String formaPagamento, String descricao, String nomeFuncionario, Usuario funcionario) throws Exception {
         
         Usuario usuarioCliente = usuarioDAO.encontrarPorNome(nomeClienteSelecionado.trim());
         if (usuarioCliente == null || !(usuarioCliente instanceof Cliente)) {
@@ -106,6 +106,7 @@ public class VendaController {
         novaVenda.setDataCompra(); // Define a data atual
         novaVenda.setFormaPagamento(formaPagamento);
         novaVenda.setDescricao(descricao != null ? descricao.trim() : "");
+        novaVenda.setVendaFinalizada(true);
         
         if (carrinhoAtual.getProdutos().isEmpty()) {
             throw new vendaInvalida("O carrinho está vazio!");

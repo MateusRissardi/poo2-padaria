@@ -282,7 +282,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
             String formaPagamento = cbPagamento.getSelectedItem().toString();
             String descricao = taDescricao.getText();
 
-            Venda vendaSalva = vendaController.finalizarVenda(nomeCliente, formaPagamento, descricao, usuario.getNome());
+            Venda vendaSalva = vendaController.finalizarVenda(nomeCliente, formaPagamento, descricao, usuario.getNome(), usuario);
 
             JOptionPane.showMessageDialog(this,
                 "Venda registrada com sucesso!\n" +

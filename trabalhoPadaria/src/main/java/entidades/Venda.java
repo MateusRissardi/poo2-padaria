@@ -42,6 +42,10 @@ public class Venda implements Serializable {
     private LocalDate dataCompra;
     private boolean vendaFinalizada;
 
+    public void setVendaFinalizada(boolean vendaFinalizada) {
+        this.vendaFinalizada = vendaFinalizada;
+    }
+    
     public Venda() {
         this.descricao = "";
         this.vendaFinalizada = false;

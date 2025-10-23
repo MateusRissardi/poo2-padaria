@@ -51,7 +51,6 @@ entidades\Carrinho.class
 views\TelaHomeAdminView$3.class
 views\TelaCadastroFuncionarioView.class
 views\TelaDetalhesDaContaView.class
-views\TelaRegistrarVendaView$6.class
 views\TelaLoginCadastroView$3.class
 Excecoes\vendaInvalida.class
 views\TelaVisualizarUsuarios$2.class
@@ -59,9 +58,9 @@ views\TelaRegistrarVendaView$3.class
 trabalhopadaria\ProdutoDAO.class
 views\TelaHomeAdminView$6.class
 Excecoes\telefoneInvalido.class
+Excecoes\carrinhoInvalido.class
 views\TelaEditarProdutoView$2.class
 views\TelaDetalhesDaContaView$3.class
-views\TelaRegistrarVendaView$5.class
 trabalhopadaria\TrabalhoPadaria.class
 views\TelaHomeAdminView.class
 views\TelaHomeFuncionarioView$4.class

@@ -71,14 +71,14 @@ public class Carrinho implements Serializable {
         }
     }
 
-    public void setProdutos(Produto umProd, int quantidade){
+    public void setProdutos(Produto umProd){
         try{
-           if(umProd.getQuantidadeEstoque() <= 0  || quantidade > umProd.getQuantidadeEstoque()){
+           if(umProd.getQuantidadeEstoque() <= 0 ){
             throw new produtoInvalido("Não é possível adicionar o item no carrinho, quantidade de produto excedida!");
             }
             else{
+                umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() - 1);
                 produtos.add(umProd);
-                umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() - quantidade);
                 setValorCarrinho(umProd.getPreco());   
             } 
         }
@@ -97,19 +97,14 @@ public class Carrinho implements Serializable {
     }
     
     public void removeAllCarrinho(){
-        produtos.clear();
-    }
-    public void removeOneProdutoFromCarrinho(Produto umProd){
-        if(produtos.contains(umProd)){
+        for(Produto umProd : produtos){
             umProd.setQuantidadeEstoque(umProd.getQuantidadeEstoque() + 1);
-            produtos.remove(umProd);
         }
-        else{
-            System.out.println("Produto não encontrado no Carrinho");
-        }
+        produtos.clear();
     }
     
     public int calcularPrecoPonto(){
+        valorPonto = 0;
         for (Produto prod : this.getProdutos()){
             valorPonto += prod.getPrecoPonto();
         }

@@ -55,6 +55,8 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
         lbQuantidade = new javax.swing.JLabel();
         btBuscar = new javax.swing.JButton();
         btAdicionar = new javax.swing.JButton();
+        lbItens = new javax.swing.JLabel();
+        tfItens = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Adicionar Produto ao Carrinho");
@@ -75,7 +77,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
 
         tfQuantidade.setEditable(false);
 
-        lbQuantidade.setText("Quantidade:");
+        lbQuantidade.setText("Estoque:");
 
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +92,8 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 btAdicionarActionPerformed(evt);
             }
         });
+
+        lbItens.setText("Itens:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,8 +129,12 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addComponent(tfPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbItens, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfItens, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +155,9 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbQuantidade))
+                    .addComponent(lbQuantidade)
+                    .addComponent(lbItens)
+                    .addComponent(tfItens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btBuscar)
@@ -172,8 +182,7 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
                 tfNome.setText(produto.getNome());
                 tfCategoria.setText(produto.getTipo());
                 tfPreco.setText(produto.getPreco() + "");
-                tfQuantidade.setText("");
-                tfQuantidade.setEditable(true);
+                tfQuantidade.setText(produto.getQuantidadeEstoque() + "");
             }
         }
         catch(usuarioInvalido ex){
@@ -189,9 +198,14 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
             }
             else{
                 umProd = proDao.encontrarPorID(Long.valueOf(tfId.getText()));
-                if(umProd.getQuantidadeEstoque()>0){
-                    this.produtos.setProdutos(umProd, Integer.parseInt(tfQuantidade.getText()));
+                if(umProd.getQuantidadeEstoque()>Integer.parseInt(tfItens.getText())){
+                    int i = 0;
+                    while(i < Integer.parseInt(tfItens.getText())){
+                        this.produtos.setProdutos(umProd);
+                        i++;
+                    }
                     telaRegistrarVenda.atualizarCarrinho(produtos.getProdutos(), Integer.parseInt(tfQuantidade.getText()));
+                    telaRegistrarVenda.setCarrinho(produtos);
                 }
                 else{
                     throw new produtoInvalido("Não há mais unidades disponíveis do produto!");
@@ -214,11 +228,13 @@ public class TelaAdicionarProdutoCarrinhoView extends javax.swing.JFrame {
     private javax.swing.JButton btBuscar;
     private javax.swing.JLabel lbCategoria;
     private javax.swing.JLabel lbId;
+    private javax.swing.JLabel lbItens;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPreco;
     private javax.swing.JLabel lbQuantidade;
     private javax.swing.JTextField tfCategoria;
     private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfItens;
     private javax.swing.JTextField tfNome;
     private javax.swing.JTextField tfPreco;
     private javax.swing.JTextField tfQuantidade;

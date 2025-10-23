@@ -162,7 +162,7 @@ public class TelaHomeFuncionarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCadastrarProdutoActionPerformed
 
     private void jbRegistrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarVendaActionPerformed
-        telaRegistrarVenda = new TelaRegistrarVendaView();
+        telaRegistrarVenda = new TelaRegistrarVendaView(this.funcionario);
         telaRegistrarVenda.setVisible(true);
     }//GEN-LAST:event_jbRegistrarVendaActionPerformed
 

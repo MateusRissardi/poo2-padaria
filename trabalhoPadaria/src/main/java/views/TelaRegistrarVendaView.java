@@ -4,11 +4,13 @@
  */
 package views;
 
-import entidades.Cliente;
+import Excecoes.carrinhoInvalido;
+import entidades.Carrinho;
 import entidades.Produto;
 import entidades.Usuario;
-import java.util.ArrayList;
+import entidades.Venda;
 import java.util.List;
+import javax.swing.JOptionPane;
 import trabalhopadaria.UsuarioDAO;
 import views.TableModels.ProdutoTableModel;
 
@@ -20,23 +22,30 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaRegistrarVendaView.class.getName());
     private UsuarioDAO usuarioDao;
-    private Usuario cliente;
+    private Usuario usuario;
     private ProdutoTableModel tableModel;
+    private Carrinho carrinho;
+    private Venda venda;
     private TelaAdicionarProdutoCarrinhoView telaAdicionarProduto;
     /**
      * Creates new form TelaRegistrarVendaView
      */
-    public TelaRegistrarVendaView() {
+    public TelaRegistrarVendaView(Usuario usuario) {
         initComponents();
         this.usuarioDao = new UsuarioDAO();
+        this.carrinho = new Carrinho();
+        this.usuario = usuario;
+        this.venda = new Venda();
         popularClientes();
         setLocationRelativeTo(null);
+        tfData.setText(venda.getDataCompra());
     }
     
     private void popularClientes(){
+        Usuario cliente;
         try{
             for(Usuario usuario : usuarioDao.findAllClientes()){
-                this.cliente = usuario;
+                cliente = usuario;
                 cbCliente.addItem(cliente.getNome());
             }
         }
@@ -65,15 +74,15 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         tfValorCarrinho = new javax.swing.JTextField();
         lbValorPontos = new javax.swing.JLabel();
         tfValorPontos = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
         lbData = new javax.swing.JLabel();
         tfData = new javax.swing.JTextField();
         lbDescricao = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lbPagamento = new javax.swing.JLabel();
+        cbPagamento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Venda");
@@ -111,12 +120,6 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
 
         lbCliente.setText("Cliente:");
 
-        cbCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbClienteActionPerformed(evt);
-            }
-        });
-
         btAdicionar.setText("Adicionar Produto");
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,10 +135,10 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
 
         tfValorPontos.setEditable(false);
 
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btSalvarActionPerformed(evt);
             }
         });
 
@@ -156,14 +159,9 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         taDescricao.setRows(5);
         jScrollPane2.setViewportView(taDescricao);
 
-        jLabel1.setText("Forma de Pagamento:");
+        lbPagamento.setText("Forma de Pagamento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pix", "Boleto", "Crédito", "Débito", "Ponto" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        cbPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pix", "Boleto", "Crédito", "Débito", "Ponto" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,31 +181,31 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfValorPontos))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbValorCarrinho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfValorCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(lbData)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lbDescricao, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbDescricao)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lbCliente)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(cbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lbPagamento)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cbPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbValorCarrinho)
+                                            .addComponent(lbData))
+                                        .addGap(53, 53, 53)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfData)
+                                            .addComponent(tfValorCarrinho))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(149, 149, 149)
-                                .addComponent(jButton1))
+                                .addComponent(btSalvar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btAdicionar)
@@ -240,8 +238,8 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbPagamento)
+                            .addComponent(cbPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbData)
@@ -255,7 +253,7 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbValorPontos)
                         .addComponent(tfValorPontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
+                    .addComponent(btSalvar))
                 .addContainerGap())
         );
 
@@ -272,21 +270,33 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    private void cbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbClienteActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        try{
+           if(carrinho.getProdutos() == null){
+               throw new carrinhoInvalido("Não há produtos no carrinho, favor adicionar produtos para seguir com a compra!");
+           }
+           else{
+               venda = new Venda();
+               venda.setFuncionario(usuario);
+               venda.setFormaPagamento(cbPagamento.getSelectedItem().toString());
+               JOptionPane.showMessageDialog(null, "Funcionario: " + venda.getFuncionario() + "Pagamento: " + venda.getFormaPagamento()
+               + ", Cliente: " + cbCliente.getSelectedItem().toString() + ", Valor: " + carrinho.getValorCarrinho());
+           }
+        }
+        catch(carrinhoInvalido ex){
+            
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
 
     public void atualizarCarrinho(List<Produto> prod, int quantidade){
         tableModel = new ProdutoTableModel(prod, this, quantidade);
         tbProdutos.setModel(tableModel);
+        tfValorCarrinho.setText(carrinho.getValorCarrinho() + "");
+        tfValorPontos.setText(carrinho.calcularPrecoPonto() + "");
+    }
+    
+    public void setCarrinho(Carrinho umCar){
+        this.carrinho = umCar;
     }
     /**
      * @param args the command line arguments
@@ -296,16 +306,16 @@ public class TelaRegistrarVendaView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox<String> cbCliente;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cbPagamento;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbCliente;
     private javax.swing.JLabel lbData;
     private javax.swing.JLabel lbDescricao;
+    private javax.swing.JLabel lbPagamento;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JLabel lbValorCarrinho;
     private javax.swing.JLabel lbValorPontos;

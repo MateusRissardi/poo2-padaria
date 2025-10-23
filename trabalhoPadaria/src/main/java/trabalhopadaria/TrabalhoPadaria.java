@@ -55,9 +55,9 @@ public class TrabalhoPadaria {
     Carrinho car1 = new Carrinho();
     
     car1.setCliente(cli2); 
-    car1.setProdutos(prod1, 2);
-    car1.setProdutos(prod2, 1);
-    car1.setProdutos(prod3, 1);
+    car1.setProdutos(prod1);
+    car1.setProdutos(prod2);
+    car1.setProdutos(prod3);
     
     car1.excluirProduto(prod1);
     

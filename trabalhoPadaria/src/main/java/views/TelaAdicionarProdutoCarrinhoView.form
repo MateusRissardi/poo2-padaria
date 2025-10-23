@@ -62,10 +62,15 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="tfPreco" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lbItens" min="-2" pref="37" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfItens" min="-2" pref="71" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,6 +97,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tfQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbItens" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfItens" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -148,7 +155,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbQuantidade">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Quantidade:"/>
+        <Property name="text" type="java.lang.String" value="Estoque:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btBuscar">
@@ -166,6 +173,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAdicionarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbItens">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Itens:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfItens">
     </Component>
   </SubComponents>
 </Form>

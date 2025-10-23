@@ -49,12 +49,7 @@ public class ProdutoTableModel extends AbstractTableModel {
             case 4:
                 return produto.getPrecoPonto();
             case 5:
-                if (tela instanceof TelaSituacaoEstoqueView){
-                    return produto.getQuantidadeEstoque();
-                }
-                else if(tela instanceof TelaRegistrarVendaView){
-                    return quantidade;
-                }
+                return produto.getQuantidadeEstoque();
             default:
                 return null;
         }

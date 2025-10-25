@@ -1,6 +1,8 @@
 package views.TableModels; // Ou o pacote onde seus outros TableModels estão
 
+import entidades.Produto;
 import entidades.Venda; // Importe sua entidade Venda
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -10,7 +12,7 @@ public class VendaTableModel extends AbstractTableModel {
     private List<Venda> vendas;
     
     // 2. Os nomes das colunas que você quer exibir na tabela
-    private final String[] colunas = {"ID Venda", "Data", "Cliente", "Funcionário", "Valor Total", "Forma Pagto."};
+    private final String[] colunas = {"ID Venda", "Data", "Cliente", "Funcionário", "Valor Total", "Forma Pagto.", "Produtos"};
 
     /**
      * Construtor que recebe a lista de vendas.
@@ -72,6 +74,14 @@ public class VendaTableModel extends AbstractTableModel {
                 return 0.0; // Valor padrão
             case 5:
                 return venda.getFormaPagamento();
+            case 6:
+                List<String> produtos = new ArrayList<String>();
+                if(venda.getCarrinho().getProdutos() != null){
+                   for(Produto umProd : venda.getCarrinho().getProdutos()){
+                    produtos.add(umProd.getNome() + "\n");
+                    } 
+                }
+                return produtos;
             default:
                 // Se algo der errado
                 return null;

@@ -40,11 +40,9 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     private void validarUsuario(){
         if(usuario instanceof Admin){
             btEditar.setVisible(true);
-            btDeletar.setVisible(true);
         }
         else{
             btEditar.setVisible(false);
-            btDeletar.setVisible(false);
         }
     }
     /**
@@ -63,7 +61,6 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tbProdutos = new javax.swing.JTable();
         btEditar = new javax.swing.JButton();
-        btDeletar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,14 +125,6 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
             }
         });
 
-        btDeletar.setBackground(new java.awt.Color(255, 104, 104));
-        btDeletar.setText("Deletar");
-        btDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDeletarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,14 +135,11 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(btConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btDeletar))
+                        .addComponent(btEditar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(137, 137, 137)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3))
@@ -166,8 +152,7 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btConsultar)
-                    .addComponent(btEditar)
-                    .addComponent(btDeletar))
+                    .addComponent(btEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -185,10 +170,6 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         editarProduto.setVisible(true);
     }//GEN-LAST:event_btEditarActionPerformed
-
-    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        
-    }//GEN-LAST:event_btDeletarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -197,7 +178,6 @@ public class TelaSituacaoEstoqueView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btConsultar;
-    private javax.swing.JButton btDeletar;
     private javax.swing.JButton btEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;

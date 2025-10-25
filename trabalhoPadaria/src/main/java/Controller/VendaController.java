@@ -10,7 +10,6 @@ import entidades.Venda;
 import excecoes.produtoInvalido;
 import excecoes.vendaInvalida;
 import excecoes.vendaPontoInvalida;
-import java.time.LocalDate;
 import java.util.List;
 import trabalhopadaria.ProdutoDAO;
 import trabalhopadaria.UsuarioDAO;

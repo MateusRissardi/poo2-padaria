@@ -52,8 +52,6 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         tfUsuario = new javax.swing.JTextField();
         tfPonto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jbDeletar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jbVisualizarUsuarios = new javax.swing.JButton();
         btVerConta = new javax.swing.JButton();
@@ -105,16 +103,6 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Padaria SisMaik");
 
-        jbDeletar.setBackground(new java.awt.Color(255, 102, 102));
-        jbDeletar.setText("Deletar");
-        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbDeletarActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Deletar usuário");
-
         jButton1.setBackground(new java.awt.Color(205, 255, 255));
         jButton1.setText("Visualizar Vendas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -162,11 +150,7 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                .addGap(19, 316, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -211,23 +195,16 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
                     .addComponent(jbCadastrarFuncionario)
                     .addComponent(btSairConta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblUsuario)
-                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPonto)
-                            .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbDeletar)
-                        .addGap(21, 21, 21))))
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPonto)
+                    .addComponent(tfPonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -247,11 +224,6 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
         TelaCadastroFuncionarioView telaCadastroFuncionario = new TelaCadastroFuncionarioView();
         telaCadastroFuncionario.setVisible(true);
     }//GEN-LAST:event_jbCadastrarFuncionarioActionPerformed
-
-    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
-        TelaDeletarUsuarioView telaDeletarUsuario = new TelaDeletarUsuarioView();
-        telaDeletarUsuario.setVisible(true);
-    }//GEN-LAST:event_jbDeletarActionPerformed
 
     private void jbSituacaoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSituacaoEstoqueActionPerformed
         TelaSituacaoEstoqueView telaSituacaoEstoque = new TelaSituacaoEstoqueView(admin);
@@ -288,12 +260,10 @@ public class TelaHomeAdminView extends javax.swing.JFrame {
     private javax.swing.JButton btVerConta;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbCadastrarFuncionario;
     private javax.swing.JButton jbCadastrarProduto;
-    private javax.swing.JButton jbDeletar;
     private javax.swing.JButton jbRegistrarVenda;
     private javax.swing.JButton jbSituacaoEstoque;
     private javax.swing.JButton jbVisualizarUsuarios;

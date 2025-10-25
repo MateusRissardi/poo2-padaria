@@ -10,7 +10,6 @@ views\TelaHomeClienteView$2.class
 views\TelaLoginCadastroView$4.class
 views\TelaVisualizarVendasView$1.class
 Excecoes\usuarioInvalido.class
-views\TelaHomeAdminView$9.class
 entidades\Funcionario.class
 Excecoes\precoInvalido.class
 views\TelaDetalhesDaContaView$1.class
@@ -63,7 +62,6 @@ views\TableModels\VendaTableModel.class
 views\TelaDeletarUsuarioView.class
 entidades\Carrinho.class
 views\TelaHomeAdminView$3.class
-views\TelaSituacaoEstoqueView$4.class
 views\TelaCadastroFuncionarioView.class
 views\TelaDetalhesDaContaView.class
 views\TelaLoginCadastroView$3.class
